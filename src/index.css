@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-ink: #0f172a;
+  --color-ink-soft: #475569;
+  --color-muted: #64748b;
+  --color-faint: #94a3b8;
+
+  --color-bg: #ffffff;
+  --color-bg-soft: #fafbfc;
+  --color-bg-tint: #f3f6fb;
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+
+  --color-brand: #2563eb;
+  --color-brand-dark: #1d4ed8;
+  --color-brand-light: #3b82f6;
+  --color-brand-tint: #eff6ff;
+
+  --color-green: #10b981;
+  --color-green-tint: #ecfdf5;
+  --color-amber: #f59e0b;
+  --color-amber-tint: #fffbeb;
+  --color-red: #ef4444;
+  --color-red-tint: #fef2f2;
+  --color-purple: #8b5cf6;
+  --color-purple-tint: #f5f3ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-bg-soft);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.sidebar-gradient {
+  background: linear-gradient(180deg, #002362, #01133f 55%, #002362);
+}
+
+.brand-btn {
+  background: linear-gradient(180deg, #1863ea, #000aaa, #1851b8);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes trialGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(0,205,76,.35), 0 0 28px rgba(0,205,76,.15), inset 0 0 0 1px rgba(0,205,76,.35); }
+  50% { box-shadow: 0 0 20px rgba(0,205,76,.65), 0 0 44px rgba(0,205,76,.3), inset 0 0 0 1px rgba(0,205,76,.55); }
+}
+.animate-trialGlow {
+  animation: trialGlow 2.2s ease-in-out infinite;
+}
+
+@media print {
+  @page { size: A4 portrait; margin: 14mm; }
+  html, body, #root { background: #ffffff !important; height: auto !important; overflow: visible !important; }
+  .print-hide, aside, nav { display: none !important; }
+  .print\:hidden { display: none !important; }
+  .print\:block { display: block !important; }
+}
