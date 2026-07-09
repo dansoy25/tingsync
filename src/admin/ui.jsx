@@ -38,8 +38,21 @@ export function Pill({ kind, children }) {
 
 export function Card({ children, className = '' }) {
   return (
-    <div className={'bg-white border border-border rounded-lg shadow-[0_1px_2px_rgba(71,85,105,.08)] ' + className}>
+    <div className={'bg-white border border-border rounded-lg shadow-soft-pop ' + className}>
       {children}
+    </div>
+  )
+}
+
+// Teal gradient card header from the new design
+export function CardHead({ title, sub, right, className = '' }) {
+  return (
+    <div className={'card-head-teal flex items-center justify-between px-4 py-3.5 rounded-t-lg ' + className}>
+      <div>
+        <div className="text-[13px] font-semibold">{title}</div>
+        {sub && <div className="text-[11px] text-white/70">{sub}</div>}
+      </div>
+      {right}
     </div>
   )
 }

@@ -1,11 +1,12 @@
 import { createContext, useContext, useState, useCallback, useRef } from 'react'
 import {
   LayoutDashboard, Clock, Users, CheckSquare, CalendarDays, Banknote, Receipt,
-  Package, QrCode, BarChart3, HardDrive, Settings as SettingsIcon, Menu, LogOut, Search,
+  Package, QrCode, BarChart3, HardDrive, Settings as SettingsIcon, Menu, LogOut,
+  Search, Bell, ChevronRight, ChevronDown,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { Avatar } from './ui'
-import BrandLogo from '../components/BrandLogo'
+import { setCurrencySymbol, currencyCode } from '../lib/format'
 import Toast from '../components/Toast'
 
 import Dashboard from './screens/Dashboard'
@@ -59,19 +60,19 @@ const NAV = [
   },
 ]
 
-const TITLES = {
-  dashboard: 'Dashboard',
-  attendance: 'Attendance',
-  employees: 'Employees',
-  tasks: 'Tasks',
-  leave: 'Leave Management',
-  payroll: 'Payroll',
-  expenses: 'Expenses',
-  inventory: 'Inventory',
-  qr: 'Generate QR codes',
-  reports: 'Reports',
-  backup: 'Backup',
-  settings: 'Settings',
+const CRUMBS = {
+  dashboard: ['Main', 'Dashboard'],
+  attendance: ['Workforce', 'Attendance'],
+  employees: ['Workforce', 'Employees'],
+  tasks: ['Workforce', 'Tasks'],
+  leave: ['Workforce', 'Leave Management'],
+  payroll: ['Finance', 'Payroll'],
+  expenses: ['Finance', 'Expenses'],
+  inventory: ['Operations', 'Inventory'],
+  qr: ['Operations', 'Generate QR'],
+  reports: ['System', 'Reports'],
+  backup: ['System', 'Backup'],
+  settings: ['System', 'Settings'],
 }
 
 const SCREENS = {
@@ -95,6 +96,7 @@ export default function AdminShell() {
   const [params, setParams] = useState({})
   const [toast, setToast] = useState('')
   const [drawer, setDrawer] = useState(false)
+  const [currency, setCurrency] = useState(currencyCode())
   const toastTimer = useRef(null)
 
   const navigate = useCallback((next, p = {}) => {
@@ -109,19 +111,27 @@ export default function AdminShell() {
     toastTimer.current = setTimeout(() => setToast(''), 2600)
   }, [])
 
+  const switchCurrency = useCallback((code) => {
+    setCurrencySymbol(code)
+    setCurrency(code)
+  }, [])
+
   const Screen = SCREENS[screen] || Dashboard
-  const ctx = { screen, params, navigate, flash, profile }
+  const [crumbSection, crumbPage] = CRUMBS[screen] || ['Main', 'Dashboard']
+  const ctx = { screen, params, navigate, flash, profile, currency }
 
   const Sidebar = () => (
-    <div className="w-[248px] sidebar-gradient flex flex-col h-full shrink-0 text-white">
-      <div className="flex flex-col items-center gap-1 py-5 border-b border-white/10">
-        <BrandLogo size={19} />
-        <div className="text-[7px] tracking-[2.5px] text-white/45">WORKFORCE MANAGEMENT, SYNCED.</div>
+    <div className="w-[248px] flex flex-col h-full shrink-0 text-white" style={{ background: 'linear-gradient(180deg, #002362, #01133f 55%, #002362)' }}>
+      <div className="flex flex-col items-center gap-1 py-4 bg-[#010F2A] border-b border-white/10">
+        <div className="text-[20px] font-extrabold tracking-tight leading-none text-[#F8F8F8]">
+          ting<span className="text-[#0082FF]">sync</span>
+        </div>
+        <div className="text-[7px] tracking-[3px] text-[#A4A7AD] uppercase">Workforce Management, Synced.</div>
       </div>
-      <nav className="flex-1 overflow-y-auto px-3 py-4">
+      <nav className="flex-1 overflow-y-auto px-3 py-3 sidebar-gradient">
         {NAV.map((group) => (
-          <div key={group.section} className="mb-4">
-            <div className="text-[10px] font-semibold uppercase tracking-wide text-white/35 px-3 mb-1.5">{group.section}</div>
+          <div key={group.section} className="mb-3">
+            <div className="text-[10px] font-semibold uppercase tracking-[.5px] text-[#94A3B8] px-3 pt-2 pb-1.5">{group.section}</div>
             {group.items.map((item) => {
               const active = screen === item.key
               const Icon = item.icon
@@ -130,11 +140,13 @@ export default function AdminShell() {
                   key={item.key}
                   onClick={() => navigate(item.key)}
                   className={
-                    'w-full flex items-center gap-2.5 px-3 py-2 rounded-md text-[13px] font-medium mb-0.5 transition-colors ' +
-                    (active ? 'bg-white/10 text-white' : 'text-white/55 hover:text-white/85 hover:bg-white/5')
+                    'w-full flex items-center gap-2.5 px-3 py-[7px] rounded-md text-[13px] font-medium mb-0.5 transition-colors border-l-2 ' +
+                    (active
+                      ? 'bg-brand-tint text-brand border-brand'
+                      : 'text-[#8E8E8E] border-transparent hover:text-white hover:bg-white/5')
                   }
                 >
-                  <Icon size={16} />
+                  <Icon size={16} className={active ? 'text-brand' : ''} />
                   {item.label}
                 </button>
               )
@@ -142,14 +154,14 @@ export default function AdminShell() {
           </div>
         ))}
       </nav>
-      <div className="flex items-center gap-2.5 px-4 py-3 border-t border-white/10">
+      <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white text-ink">
         <Avatar name={profile.full_name} src={profile.avatar_url} size={32} />
         <div className="flex-1 min-w-0">
-          <div className="text-[12px] font-semibold truncate">{profile.full_name}</div>
-          <div className="text-[11px] text-white/45 truncate">{profile.is_admin ? 'Owner' : profile.position}</div>
+          <div className="text-[12px] font-semibold truncate text-[#32323A]">{profile.full_name}</div>
+          <div className="text-[11px] text-[#2F2E2E]">Owner</div>
         </div>
-        <button onClick={signOut} aria-label="Log out" className="text-white/45 hover:text-white shrink-0">
-          <LogOut size={16} />
+        <button onClick={signOut} aria-label="Log out" className="text-[#002E97] hover:text-brand shrink-0">
+          <LogOut size={18} />
         </button>
       </div>
     </div>
@@ -168,7 +180,7 @@ export default function AdminShell() {
         )}
 
         <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="h-16 bg-white border-b border-border flex items-center px-4 sm:px-6 gap-4 shrink-0">
+          <div className="h-[52px] bg-white border-b border-border flex items-center px-4 sm:px-5 gap-3 shrink-0 shadow-soft-pop relative z-[5]">
             <button
               onClick={() => setDrawer(true)}
               className="lg:hidden border-none bg-bg-tint w-9 h-9 rounded-md flex items-center justify-center"
@@ -176,15 +188,46 @@ export default function AdminShell() {
             >
               <Menu size={18} />
             </button>
-            <div className="text-lg font-bold">{TITLES[screen]}</div>
-            <div className="flex-1" />
-            <div className="hidden md:flex items-center gap-2 border border-border rounded-md px-3 py-2 w-[220px] text-faint text-[13px]">
-              <Search size={14} /> Search…
+            <div className="flex items-center gap-2 text-[13px] text-ink-soft min-w-0">
+              <span className="hidden sm:inline">{crumbSection}</span>
+              <ChevronRight size={14} className="hidden sm:inline text-faint" />
+              <span className="text-[14px] font-semibold text-ink truncate">{crumbPage}</span>
             </div>
-            <Avatar name={profile.full_name} src={profile.avatar_url} size={34} />
+            <div className="flex-1" />
+            <div className="inline-flex items-center gap-1 rounded-lg p-[3px] border border-border bg-bg-soft shadow-soft-pop">
+              <button
+                onClick={() => switchCurrency('PHP')}
+                className={
+                  'px-2.5 py-[3px] rounded-md text-[11px] font-semibold transition-colors ' +
+                  (currency === 'PHP' ? 'seg-active-grad' : 'text-[#184A91] border border-[#6193E4]')
+                }
+              >
+                ₱ PHP
+              </button>
+              <button
+                onClick={() => switchCurrency('USD')}
+                className={
+                  'px-2.5 py-[3px] rounded-md text-[11px] font-semibold transition-colors ' +
+                  (currency === 'USD' ? 'seg-active-grad' : 'text-[#184A91] border border-[#6193E4]')
+                }
+              >
+                $ USD
+              </button>
+            </div>
+            <button className="w-9 h-9 rounded-md flex items-center justify-center text-ink-soft hover:bg-bg-soft" aria-label="Search">
+              <Search size={18} />
+            </button>
+            <button className="w-9 h-9 rounded-md flex items-center justify-center text-ink-soft hover:bg-bg-soft relative" aria-label="Notifications">
+              <Bell size={18} />
+              <span className="absolute top-[6px] right-[6px] w-1.5 h-1.5 bg-red rounded-full" />
+            </button>
+            <button className="flex items-center gap-1.5 px-1 py-1 rounded-md hover:bg-bg-soft" onClick={() => navigate('settings')} aria-label="Profile">
+              <Avatar name={profile.full_name} src={profile.avatar_url} size={28} />
+              <ChevronDown size={14} className="text-[#004DB8]" />
+            </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-white">
             <Screen />
           </div>
         </div>

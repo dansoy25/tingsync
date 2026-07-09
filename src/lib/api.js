@@ -67,21 +67,28 @@ export async function logActivity({ orgId, actorId, actorName, type, message }) 
 // ---------- Dashboard ----------
 export async function fetchDashboard() {
   const today = manilaToday()
-  const [{ data: profiles }, { data: todayAtt }, { data: leavePending }, { data: leaveApproved }, { data: trendRows }, { data: run }, { data: tasksOpen }, { data: tasksDoneWeek }] =
-    await Promise.all([
-      supabase.from('profiles').select('id, is_admin, status'),
-      supabase.from('attendance').select('id, status, profile_id').eq('work_date', today),
-      supabase
-        .from('leave_requests')
-        .select('id, status, date_from, date_to, days, reason, profile:profiles(full_name, position, avatar_url)')
-        .eq('status', 'pending')
-        .order('created_at', { ascending: false }),
-      supabase.from('leave_requests').select('id, date_from, date_to').eq('status', 'approved'),
-      supabase.from('attendance').select('work_date').gte('work_date', shiftDays(today, -6)),
-      supabase.from('payroll_runs').select('*').order('period_start', { ascending: false }).limit(1).maybeSingle(),
-      supabase.from('tasks').select('id', { count: 'exact', head: true }).neq('status', 'done'),
-      supabase.from('tasks').select('id', { count: 'exact', head: true }).eq('status', 'done').gte('updated_at', shiftDays(today, -6)),
-    ])
+  const monthStart = today.slice(0, 8) + '01'
+  const [
+    { data: profiles }, { data: todayAtt }, { data: leavePending }, { data: leaveApproved },
+    { data: trendRows }, { data: run }, tasksOpen, tasksDoneWeek,
+    { data: expensesMonth }, { data: inventory }, { data: activity },
+  ] = await Promise.all([
+    supabase.from('profiles').select('id, is_admin, status'),
+    supabase.from('attendance').select('id, status, profile_id').eq('work_date', today),
+    supabase
+      .from('leave_requests')
+      .select('id, status, date_from, date_to, days, reason, profile:profiles(full_name, position, avatar_url)')
+      .eq('status', 'pending')
+      .order('created_at', { ascending: false }),
+    supabase.from('leave_requests').select('id, date_from, date_to').eq('status', 'approved'),
+    supabase.from('attendance').select('work_date').gte('work_date', shiftDays(today, -29)),
+    supabase.from('payroll_runs').select('*').order('period_start', { ascending: false }).limit(1).maybeSingle(),
+    supabase.from('tasks').select('id', { count: 'exact', head: true }).neq('status', 'done'),
+    supabase.from('tasks').select('id', { count: 'exact', head: true }).eq('status', 'done').gte('updated_at', shiftDays(today, -6)),
+    supabase.from('expenses').select('amount, category, spent_on').gte('spent_on', monthStart),
+    supabase.from('inventory_items').select('id, status'),
+    supabase.from('notifications').select('*').order('created_at', { ascending: false }).limit(8),
+  ])
 
   const employees = (profiles || []).filter((p) => !p.is_admin && p.status === 'active')
   const present = (todayAtt || []).filter((a) => a.status === 'present' || a.status === 'ongoing').length
@@ -89,12 +96,31 @@ export async function fetchDashboard() {
   const onLeave = (leaveApproved || []).filter((l) => l.date_from <= today && l.date_to >= today).length
   const absent = Math.max(0, employees.length - present - late - onLeave)
 
-  const counts = {}
-  for (let i = 6; i >= 0; i--) counts[shiftDays(today, -i)] = 0
-  ;(trendRows || []).forEach((r) => {
-    if (counts[r.work_date] != null) counts[r.work_date]++
+  const buildTrend = (days) => {
+    const counts = {}
+    for (let i = days - 1; i >= 0; i--) counts[shiftDays(today, -i)] = 0
+    ;(trendRows || []).forEach((r) => {
+      if (counts[r.work_date] != null) counts[r.work_date]++
+    })
+    return Object.entries(counts).map(([date, count]) => ({ date, count }))
+  }
+
+  const expenseTotal = (expensesMonth || []).reduce((s, e) => s + Number(e.amount || 0), 0)
+  const expenseToday = (expensesMonth || [])
+    .filter((e) => e.spent_on === today)
+    .reduce((s, e) => s + Number(e.amount || 0), 0)
+  const byCategory = {}
+  ;(expensesMonth || []).forEach((e) => {
+    const c = e.category || 'other'
+    byCategory[c] = (byCategory[c] || 0) + Number(e.amount || 0)
   })
-  const trend = Object.entries(counts).map(([date, count]) => ({ date, count }))
+  const expenseBreakdown = Object.entries(byCategory)
+    .map(([category, amount]) => ({ category, amount, pct: expenseTotal ? Math.round((amount / expenseTotal) * 100) : 0 }))
+    .sort((a, b) => b.amount - a.amount)
+    .slice(0, 5)
+
+  const inventoryCount = (inventory || []).length
+  const lowStock = (inventory || []).filter((i) => i.status === 'low' || i.status === 'critical').length
 
   return {
     employeeCount: employees.length,
@@ -104,11 +130,18 @@ export async function fetchDashboard() {
     onLeave,
     pending: leavePending || [],
     pendingCount: (leavePending || []).length,
-    trend,
+    trend7: buildTrend(7),
+    trend30: buildTrend(30),
     run,
     today,
-    tasksOpenCount: tasksOpen?.length ?? 0,
-    tasksDoneWeekCount: tasksDoneWeek?.length ?? 0,
+    tasksOpenCount: tasksOpen?.count ?? 0,
+    tasksDoneWeekCount: tasksDoneWeek?.count ?? 0,
+    expenseTotal,
+    expenseToday,
+    expenseBreakdown,
+    inventoryCount,
+    lowStock,
+    activity: activity || [],
   }
 }
 

@@ -54,12 +54,25 @@ body {
 }
 
 .sidebar-gradient {
-  background: linear-gradient(180deg, #002362, #01133f 55%, #002362);
+  background: linear-gradient(270deg, #010e31, #090b46, #040760, #0a0b55, #04042f);
 }
 
 .brand-btn {
-  background: linear-gradient(180deg, #1863ea, #000aaa, #1851b8);
+  background: linear-gradient(180deg, #2767ff, #0c0580, #2767ff);
 }
+
+/* New admin design accents (from TingSync Standalone prototype) */
+.card-head-teal {
+  background: linear-gradient(180deg, #045771, #003e45, #001d26);
+  color: #ffffff;
+}
+.metric-grad-green { background: linear-gradient(180deg, #31df26, #199903, #104c06); border-color: #57e039 !important; }
+.metric-grad-olive { background: linear-gradient(180deg, #abbb05, #7e8a03, #4b4c00); border-color: #daff00 !important; }
+.metric-grad-teal  { background: linear-gradient(180deg, #128597, #0b6660, #072d31); border-color: #00d99f !important; }
+.metric-grad-red   { background: linear-gradient(180deg, #e24114, #881f04, #431401); border-color: #d03f03 !important; }
+.seg-active-grad   { background: linear-gradient(180deg, #2767ff, #130aa6, #2767ff); color: #ffffff; }
+.shadow-pop        { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
+.shadow-soft-pop   { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
