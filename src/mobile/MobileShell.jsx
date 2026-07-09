@@ -71,7 +71,7 @@ export default function MobileShell() {
         </div>
         {showTabs && (
           <nav
-            className="shrink-0 grid grid-cols-5 border-t border-white/10 bg-[#0f1117]"
+            className="shrink-0 grid grid-cols-5 border-t border-white/10 bg-[#0A3DB6]"
             style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
           >
             {TABS.map((t) => {
@@ -82,7 +82,7 @@ export default function MobileShell() {
                   key={t.key}
                   onClick={() => navigate(t.key)}
                   className={`flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition-colors ${
-                    active ? 'text-brand-light' : 'text-white/40'
+                    active ? 'text-sky-300' : 'text-white/70'
                   }`}
                 >
                   <Icon className="w-[18px] h-[18px]" strokeWidth={active ? 2.4 : 2} />
