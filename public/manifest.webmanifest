@@ -1,0 +1,15 @@
+{
+  "name": "TingSync",
+  "short_name": "TingSync",
+  "description": "Workforce management, synced. Attendance with selfie + GPS verification, leave, and payslips.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#14161c",
+  "theme_color": "#02857f",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

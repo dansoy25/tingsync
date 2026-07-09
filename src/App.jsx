@@ -5,6 +5,7 @@ import Signup from './pages/auth/Signup'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import Onboarding from './pages/auth/Onboarding'
 import AdminShell from './admin/AdminShell'
+import MobileShell from './mobile/MobileShell'
 
 function Splash() {
   return (
@@ -31,7 +32,15 @@ export default function App() {
       <Route
         path="/*"
         element={
-          !session ? <Navigate to="/login" replace /> : !profile ? <Navigate to="/onboarding" replace /> : <AdminShell />
+          !session ? (
+            <Navigate to="/login" replace />
+          ) : !profile ? (
+            <Navigate to="/onboarding" replace />
+          ) : profile.is_admin ? (
+            <AdminShell />
+          ) : (
+            <MobileShell />
+          )
         }
       />
     </Routes>

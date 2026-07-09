@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TingSync</string>
+    <string name="title_activity_main">TingSync</string>
+    <string name="package_name">com.tingsync.app</string>
+    <string name="custom_url_scheme">com.tingsync.app</string>
+</resources>

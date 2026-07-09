@@ -114,15 +114,20 @@ export async function fetchDashboard() {
 
 // ---------- Attendance ----------
 export async function fetchTodayAttendance() {
-  const today = manilaToday()
+  return fetchAttendanceByDate(manilaToday())
+}
+
+export async function fetchAttendanceByDate(workDate) {
   const { data, error } = await supabase
     .from('attendance')
     .select('*, profile:profiles(full_name, position, avatar_url), site:sites(name)')
-    .eq('work_date', today)
+    .eq('work_date', workDate)
     .order('clock_in', { ascending: true })
   if (error) throw error
   return data
 }
+
+export { manilaToday, shiftDays }
 
 // ---------- Employees ----------
 export async function fetchEmployees() {
