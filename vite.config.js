@@ -4,5 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: process.env.GITHUB_PAGES ? '/tingsync/' : '/',
   server: { port: 5174 },
 })
