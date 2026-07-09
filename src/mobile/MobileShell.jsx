@@ -41,7 +41,7 @@ export default function MobileShell() {
 
   useEffect(() => {
     const prev = document.body.style.background
-    document.body.style.background = '#0f1117'
+    document.body.style.background = '#1C1D22'
     return () => { document.body.style.background = prev }
   }, [])
 
@@ -65,7 +65,7 @@ export default function MobileShell() {
 
   return (
     <MobileContext.Provider value={ctx}>
-      <div className="h-dvh w-full max-w-[520px] mx-auto flex flex-col bg-[#14161c] text-white">
+      <div className="h-dvh w-full max-w-[520px] mx-auto flex flex-col bg-[#1C1D22] text-white">
         <div className="flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
           <Screen />
         </div>
