@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Camera, FileText, Download, ChevronDown } from 'lucide-react'
+import { Camera, FileText, Download } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useMobile } from '../MobileShell'
 import { supabase } from '../../lib/supabase'
@@ -79,7 +79,7 @@ export default function MProfile() {
           </button>
           <div className="flex items-center justify-between py-3 border-t border-border">
             <span className="text-[13px]">Language</span>
-            <span className="flex items-center gap-1 text-[13px] font-semibold">English <ChevronDown className="w-3 h-3 text-faint" /></span>
+            <span className="text-[13px] font-semibold">English</span>
           </div>
         </div>
 

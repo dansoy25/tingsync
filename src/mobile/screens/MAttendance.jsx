@@ -69,7 +69,7 @@ export default function MAttendance() {
     <div className="bg-[#F6F7FF] min-h-full pb-6">
       {/* Teal header */}
       <div
-        className="text-white px-5 pt-7 pb-8 rounded-b-[20px] border border-[#2AC1BC] shadow-[0_4px_12px_rgba(0,0,0,.62)]"
+        className="text-white px-5 pt-7 pb-16 rounded-b-[20px] border border-[#2AC1BC] shadow-[0_4px_12px_rgba(0,0,0,.62)]"
         style={{ background: 'linear-gradient(180deg, #02B2AC, #28211a)' }}
       >
         <div className="text-center">
@@ -85,7 +85,7 @@ export default function MAttendance() {
         </div>
       </div>
 
-      <div className="px-4 -mt-12 relative z-[2]">
+      <div className="px-4 -mt-10 relative z-[2]">
         {/* TODAY card */}
         {todayRow && (
           <div className="rounded-xl p-[18px] mb-5 shadow-[0_10px_30px_rgba(0,0,0,.35)]" style={{ background: 'linear-gradient(200deg, #034A88, #1685B2, #034A88)' }}>

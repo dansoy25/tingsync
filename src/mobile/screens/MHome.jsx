@@ -69,7 +69,7 @@ export default function MHome() {
     <div className="bg-white min-h-full pb-6">
       {/* Teal header */}
       <div
-        className="text-white px-5 pt-7 pb-8 rounded-b-[20px] border-b border-[#2AC1BC]"
+        className="text-white px-5 pt-7 pb-16 rounded-b-[20px] border-b border-[#2AC1BC]"
         style={{ background: 'linear-gradient(180deg, #02B2AC, #28211a)' }}
       >
         <div className="text-center mb-5">
@@ -93,7 +93,7 @@ export default function MHome() {
       </div>
 
       {/* TODAY card */}
-      <div className="px-4 -mt-12 relative z-[2]">
+      <div className="px-4 -mt-10 relative z-[2]">
         <div
           className="rounded-xl p-[18px] shadow-[0_10px_30px_rgba(0,0,0,.35)]"
           style={{ background: 'linear-gradient(200deg, #034A88, #1685B2, #034A88)' }}
