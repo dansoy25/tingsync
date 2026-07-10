@@ -142,7 +142,7 @@ export default function MLeave() {
               disabled={saving}
               onClick={submit}
               className="h-[52px] rounded-[10px] font-semibold text-sm text-white disabled:opacity-50 shadow-[0_7px_12px_rgba(5,5,5,.62)]"
-              style={{ background: 'linear-gradient(180deg, #1F58D5, #000E79, #144DC3)' }}
+              style={{ background: 'linear-gradient(180deg, #1F58D5, #1027D4, #144DC3)' }}
             >
               {saving ? 'Submitting…' : 'Submit request'}
             </button>

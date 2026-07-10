@@ -138,9 +138,9 @@ export default function MProfile() {
         <button
           onClick={signOut}
           className="h-12 rounded-xl font-semibold text-sm text-[#F9F9F9] mt-1 shadow-[3px_4px_12px_rgba(0,0,0,.62)]"
-          style={{ background: 'linear-gradient(180deg, #3B0000, #680303, #1F0000)' }}
+          style={{ background: 'linear-gradient(180deg, #6C0303, #BC1212, #6C0303)' }}
         >
-          Log out
+          Log Out
         </button>
       </div>
     </div>

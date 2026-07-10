@@ -176,7 +176,7 @@ function ConfirmStep({ mode, profile, site, position, hoursLabel, onConfirm, onC
         disabled={saving}
         onClick={onConfirm}
         className="w-full h-[52px] rounded-[10px] font-semibold text-sm text-white flex items-center justify-center gap-2 disabled:opacity-50 shadow-[0_6px_12px_rgba(0,0,0,.62)]"
-        style={{ background: 'linear-gradient(180deg, #2563EB, #00194E, #2563EB)' }}
+        style={{ background: 'linear-gradient(180deg, #2563EB, #0239AD, #2563EB)' }}
       >
         {saving ? 'Saving…' : (<><Check className="w-[18px] h-[18px]" /> {mode === 'in' ? 'Confirm clock-in' : 'Confirm clock-out'}</>)}
       </button>
@@ -226,7 +226,7 @@ function SuccessStep({ mode, row, site, onDone }) {
         <button
           onClick={onDone}
           className="w-full h-[52px] rounded-xl font-bold text-[#004530] shadow-[2px_4px_12px_rgba(0,0,0,.62)] active:scale-[.98] transition-transform"
-          style={{ background: 'linear-gradient(180deg, rgba(255,255,255,.2), #F8F8F8, rgba(255,255,255,.31))' }}
+          style={{ background: 'linear-gradient(180deg, #FFFFFF, #B6F8BFEC, #FFFFFF)' }}
         >
           Done
         </button>

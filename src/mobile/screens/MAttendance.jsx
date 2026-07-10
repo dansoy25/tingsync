@@ -17,13 +17,6 @@ const BADGE = {
 }
 const LABEL = { present: 'Present', ongoing: 'Present', late: 'Late', absent: 'Absent' }
 
-function greeting() {
-  const h = Number(new Intl.DateTimeFormat('en-PH', { hour: 'numeric', hour12: false, timeZone: 'Asia/Manila' }).format(new Date()))
-  if (h < 12) return 'Good morning'
-  if (h < 18) return 'Good afternoon'
-  return 'Good evening'
-}
-
 function dayHeader(workDate, today) {
   const d = new Date(workDate + 'T00:00:00+08:00')
   const wd = workDate === today ? 'TODAY' : new Intl.DateTimeFormat('en-PH', { weekday: 'long', timeZone: 'Asia/Manila' }).format(d).toUpperCase()
@@ -67,15 +60,15 @@ export default function MAttendance() {
 
   return (
     <div className="bg-[#F6F7FF] min-h-full pb-6">
-      {/* Teal header */}
+      {/* Blue header */}
       <div
         className="text-white px-5 pt-7 pb-16 rounded-b-[20px] border border-[#2AC1BC] shadow-[0_4px_12px_rgba(0,0,0,.62)]"
-        style={{ background: 'linear-gradient(180deg, #02B2AC, #28211a)' }}
+        style={{ background: 'linear-gradient(180deg, #0088FF, #28211a)' }}
       >
         <div className="text-center">
           <div
             className="inline-block px-[18px] py-1.5 rounded-full border backdrop-blur shadow-[0_4px_12px_rgba(0,0,0,.35)]"
-            style={{ background: 'rgba(125,185,255,.55)', borderColor: 'rgba(219,234,254,.75)' }}
+            style={{ background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.2)' }}
           >
             <span className="text-[22px] font-extrabold tracking-tight leading-none text-white">
               ting<span className="text-[#003F7C]" style={{ textShadow: '0 0 12px rgba(0,130,255,.9)' }}>sync</span>
@@ -84,7 +77,7 @@ export default function MAttendance() {
           <div className="mt-2 text-[9px] font-semibold tracking-[2.4px] uppercase text-white/60">Attendance · GPS Verified</div>
         </div>
         <div className="text-center text-[13px] font-bold italic mt-4 text-[#F9F9F9] leading-snug">
-          {greeting()} {profile.full_name?.split(' ')[0]}. Welcome back — safety is our priority, please follow all protocols today.
+          Great work today! Clock out on time and enjoy your well deserved break.
         </div>
       </div>
 
@@ -115,7 +108,7 @@ export default function MAttendance() {
               <button
                 onClick={() => navigate('checkin', { mode: 'out', row: todayRow })}
                 className="mt-4 mx-auto block w-[236px] h-[52px] rounded-[10px] font-semibold text-sm text-white shadow-[0_4px_12px_rgba(0,0,0,.48)]"
-                style={{ background: 'linear-gradient(180deg, #1A0000, #6F0000, #1A0000)' }}
+                style={{ background: 'linear-gradient(180deg, #6C0303, #DF0000, #6C0303)' }}
               >
                 Clock out
               </button>

@@ -70,12 +70,12 @@ export default function MHome() {
       {/* Teal header */}
       <div
         className="text-white px-5 pt-7 pb-16 rounded-b-[20px] border-b border-[#2AC1BC]"
-        style={{ background: 'linear-gradient(180deg, #02B2AC, #28211a)' }}
+        style={{ background: 'linear-gradient(180deg, #0088FF, #28211a)' }}
       >
         <div className="text-center mb-5">
           <div
             className="inline-block px-[18px] py-1.5 rounded-full border backdrop-blur shadow-[0_4px_12px_rgba(0,0,0,.35)]"
-            style={{ background: 'rgba(125,185,255,.55)', borderColor: 'rgba(219,234,254,.75)' }}
+            style={{ background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.2)' }}
           >
             <span className="text-[22px] font-extrabold tracking-tight leading-none text-white">
               ting<span className="text-[#003F7C]" style={{ textShadow: '0 0 12px rgba(0,130,255,.9)' }}>sync</span>
@@ -90,7 +90,7 @@ export default function MHome() {
             <div className="text-xs text-white/75 mt-0.5">{dateLabel}</div>
           </div>
           <button onClick={() => navigate('profile')} className="rounded-full ring-2 ring-white/35">
-            <Avatar name={profile.full_name} src={profile.avatar_url} size={42} />
+            <Avatar name={profile.full_name} src={profile.avatar_url} size={64} />
           </button>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function MHome() {
               <button
                 onClick={() => navigate('checkin', { mode: 'out', row: today })}
                 className="mt-4 mx-auto block w-[236px] h-[52px] rounded-[10px] font-semibold text-sm text-white shadow-[0_4px_12px_rgba(0,0,0,.48)] active:scale-[.98] transition-transform"
-                style={{ background: 'linear-gradient(180deg, #1A0000, #6F0000, #1A0000)' }}
+                style={{ background: 'linear-gradient(180deg, #6C0303, #FF0000, #6C0303)' }}
               >
                 Clock out
               </button>
@@ -156,7 +156,7 @@ export default function MHome() {
               <button
                 onClick={() => navigate('checkin', { mode: 'in' })}
                 className="mt-4 mx-auto w-[238px] h-[56px] rounded-[10px] font-semibold text-sm text-white flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,.48)] active:scale-[.98] transition-transform"
-                style={{ background: 'linear-gradient(180deg, #00051A, #000D6F, #00051A)' }}
+                style={{ background: 'linear-gradient(180deg, #041F92, #2133BE, #041F92)' }}
               >
                 <Play className="w-4 h-4" /> Clock in
               </button>

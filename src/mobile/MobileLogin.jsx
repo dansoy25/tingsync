@@ -34,7 +34,7 @@ export default function MobileLogin() {
     'w-full font-mono text-[13px] h-10 rounded-lg border-[1.5px] border-[#579DEC] pl-[34px] pr-3 outline-none focus:border-brand shadow-[0_4px_12px_rgba(0,0,0,.38)] text-ink'
 
   return (
-    <div className="min-h-dvh w-full flex justify-center px-6 pt-12 pb-8" style={{ background: '#0026FF' }}>
+    <div className="min-h-dvh w-full flex justify-center px-6 pt-12 pb-8" style={{ background: '#0088FF' }}>
       <div className="w-full max-w-[360px]">
         {/* Header */}
         <div className="text-center mb-7 mt-4">
