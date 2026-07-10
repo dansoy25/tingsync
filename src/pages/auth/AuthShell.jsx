@@ -1,5 +1,6 @@
 import { Check } from 'lucide-react'
 import BrandLogo from '../../components/BrandLogo'
+import logoMark from '../../assets/logo-mark.png'
 
 const POINTS = [
   'Track your team from anywhere',
@@ -38,6 +39,7 @@ export default function AuthShell({ children }) {
 
       <div className="w-full max-w-[380px] relative">
         <div className="flex flex-col items-center mb-5">
+          <img src={logoMark} alt="TingSync" className="w-14 h-14 mb-2 drop-shadow-[0_4px_16px_rgba(37,99,235,.45)]" />
           <BrandLogo size={30} />
           <div className="text-[11px] text-slate-400 tracking-[3px] mt-2">WORKFORCE MANAGEMENT, SYNCED.</div>
         </div>

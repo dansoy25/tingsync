@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Play, Megaphone } from 'lucide-react'
 import { useMobile } from '../MobileShell'
 import { Avatar } from '../../admin/ui'
+import logoMark from '../../assets/logo-mark.png'
 import { timePH, hm } from '../../lib/format'
 import {
   fetchMyToday, fetchMyWeekHours, fetchMyLeaveBalance, fetchAnnouncements,
@@ -68,7 +69,8 @@ export default function MHome() {
         style={{ background: 'linear-gradient(180deg, #02857f, #0b3946 70%, #14161c)' }}
       >
         <div className="text-center mb-5">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-white/15 border border-white/20 backdrop-blur">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/20 backdrop-blur">
+            <img src={logoMark} alt="" className="w-6 h-6" />
             <span className="text-xl font-extrabold tracking-tight">
               ting<span className="text-sky-300">sync</span>
             </span>
