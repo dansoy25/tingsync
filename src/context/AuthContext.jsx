@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, SUPABASE_URL, SUPABASE_ANON_KEY } from '../lib/supabase'
 import { fetchProfile, logActivity, createOrganization } from '../lib/api'
 
 const AuthContext = createContext(null)
@@ -51,6 +51,35 @@ export function AuthProvider({ children }) {
     return data
   }, [])
 
+  // Employee mobile login: company code + employee ID + PIN → session (via employee-login edge fn).
+  const signInWithPin = useCallback(async (companyCode, employeeId, pin) => {
+    let res
+    try {
+      res = await fetch(`${SUPABASE_URL}/functions/v1/employee-login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY },
+        body: JSON.stringify({ company_code: companyCode, employee_id: employeeId, pin }),
+      })
+    } catch {
+      throw new Error('Network error. Check your connection and try again.')
+    }
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) throw new Error(data.error || 'Sign in failed. Please try again.')
+
+    const { error } = await supabase.auth.setSession({
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+    })
+    if (error) throw error
+    const { data: sess } = await supabase.auth.getSession()
+    if (sess?.session?.user) {
+      const p = await fetchProfile(sess.session.user.id)
+      setProfile(p)
+      logActivity({ orgId: p.org_id, actorId: p.id, actorName: p.full_name, type: 'login' })
+    }
+    return data
+  }, [])
+
   // Creates the auth user only. Onboarding (createWorkspace) provisions the org + profile.
   const signUp = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signUp({ email, password })
@@ -78,7 +107,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ session, profile, loading, signIn, signUp, createWorkspace, signOut, refreshProfile, setProfile }}
+      value={{ session, profile, loading, signIn, signInWithPin, signUp, createWorkspace, signOut, refreshProfile, setProfile }}
     >
       {children}
     </AuthContext.Provider>

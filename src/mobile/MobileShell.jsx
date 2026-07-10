@@ -41,7 +41,7 @@ export default function MobileShell() {
 
   useEffect(() => {
     const prev = document.body.style.background
-    document.body.style.background = '#1C1D22'
+    document.body.style.background = '#F6F7FF'
     return () => { document.body.style.background = prev }
   }, [])
 
@@ -65,14 +65,14 @@ export default function MobileShell() {
 
   return (
     <MobileContext.Provider value={ctx}>
-      <div className="h-dvh w-full max-w-[520px] mx-auto flex flex-col bg-[#1C1D22] text-white">
+      <div className="h-dvh w-full max-w-[520px] mx-auto flex flex-col bg-[#F6F7FF] text-ink">
         <div className="flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
           <Screen />
         </div>
         {showTabs && (
           <nav
-            className="shrink-0 grid grid-cols-5 border-t border-white/10 bg-[#0A3DB6]"
-            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+            className="shrink-0 grid grid-cols-5 bg-[#0A3DB6] px-1 pt-1"
+            style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 4px)' }}
           >
             {TABS.map((t) => {
               const active = screen === t.key
@@ -81,8 +81,8 @@ export default function MobileShell() {
                 <button
                   key={t.key}
                   onClick={() => navigate(t.key)}
-                  className={`flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition-colors ${
-                    active ? 'text-sky-300' : 'text-white/70'
+                  className={`flex flex-col items-center gap-1 py-2 rounded-xl text-[10px] font-semibold transition-colors ${
+                    active ? 'bg-white text-[#003FFF]' : 'text-white/75'
                   }`}
                 >
                   <Icon className="w-[18px] h-[18px]" strokeWidth={active ? 2.4 : 2} />

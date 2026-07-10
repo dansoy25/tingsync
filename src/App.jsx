@@ -6,6 +6,7 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 import Onboarding from './pages/auth/Onboarding'
 import AdminShell from './admin/AdminShell'
 import MobileShell from './mobile/MobileShell'
+import MobileLogin from './mobile/MobileLogin'
 
 function Splash() {
   return (
@@ -22,7 +23,8 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/login" element={session ? <Navigate to="/" replace /> : <Login />} />
+      <Route path="/login" element={session ? <Navigate to="/" replace /> : <MobileLogin />} />
+      <Route path="/admin-login" element={session ? <Navigate to="/" replace /> : <Login />} />
       <Route path="/signup" element={session ? <Navigate to="/" replace /> : <Signup />} />
       <Route path="/forgot-password" element={session ? <Navigate to="/" replace /> : <ForgotPassword />} />
       <Route
