@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TingSync — Mobile Employee UI (exact design)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root{--bg:#fff;--bg-soft:#fafbfc;--bg-tint:#f3f6fb;--bg-blue:#eff6ff;--border:#e5e7eb;--border-strong:#d1d5db;--text:#0f172a;--text-2:#475569;--text-3:#94a3b8;--primary:#2563eb;--primary-hover:#1d4ed8;--primary-light:#3b82f6;--primary-tint:#eff6ff;--green:#10b981;--green-tint:#ecfdf5;--amber:#f59e0b;--amber-tint:#fffbeb;--red:#ef4444;--red-tint:#fef2f2;--purple:#8b5cf6;--purple-tint:#f5f3ff;--shadow-sm:0 1px 2px rgba(71,85,105,.08),0 1px 1px rgba(71,85,105,.06);--shadow:0 2px 4px rgba(71,85,105,.10),0 1px 2px rgba(71,85,105,.08),0 0 0 1px rgba(71,85,105,.02);--shadow-md:0 8px 16px -4px rgba(71,85,105,.14),0 4px 8px -2px rgba(71,85,105,.10),0 1px 2px rgba(71,85,105,.06);--shadow-lg:0 24px 48px -12px rgba(71,85,105,.28),0 12px 24px -6px rgba(71,85,105,.16),0 4px 8px rgba(71,85,105,.08)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);font-feature-settings:'cv11','ss01';-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:13px;line-height:1.5;text-wrap:pretty}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+input,textarea,select{font:inherit;color:inherit;border:0;outline:0;background:none}
+a{color:inherit;text-decoration:none}
+table{border-collapse:collapse;width:100%}
+.fx{display:flex}.col{flex-direction:column}.grid{display:grid}.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}.f1{flex:1;min-width:0}.noshrink{flex-shrink:0}.wrap{flex-wrap:wrap}
+.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}
+.fs11{font-size:11px}.fs12{font-size:12px}.fs13{font-size:13px}.fs14{font-size:14px}.fs15{font-size:15px}.fs16{font-size:16px}.fs20{font-size:20px}.fs22{font-size:22px}
+.upper{text-transform:uppercase}.tc{text-align:center}.nowrap{white-space:nowrap}
+.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}.gap14{gap:14px}.gap16{gap:16px}.gap24{gap:24px}
+.m0{margin:0}.mt2{margin-top:2px}.mt8{margin-top:8px}.mt10{margin-top:10px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb10{margin-bottom:10px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}
+.posrel{position:relative}.posabs{position:absolute}.round{border-radius:50%}.ohide{overflow:hidden}.bbox{box-sizing:border-box}.pointer{cursor:pointer}.w100{width:100%}.b0{border:0}
+.muted{color:var(--text-2)}
+.faint{color:var(--text-3)}
+.brand{color:var(--primary)}
+.bg-soft{background:var(--bg-soft)}
+.bg-tint{background:var(--bg-tint)}
+.bg-blue{background:var(--bg-blue)}
+.bg-primary{background:var(--primary);color:#fff}
+.bg-primary-tint{background:var(--primary-tint)}
+.bd{border:1px solid var(--border)}
+.bd-b{border-bottom:1px solid var(--border)}
+.bd-t{border-top:1px solid var(--border)}
+.bd-r{border-right:1px solid var(--border)}
+.bd-l{border-left:1px solid var(--border)}
+.rad4{border-radius:4px}.rad6{border-radius:6px}.rad8{border-radius:8px}.rad12{border-radius:12px}.rad16{border-radius:16px}
+.shadow-sm{box-shadow:var(--shadow-sm)}.shadow{box-shadow:var(--shadow)}.shadow-md{box-shadow:var(--shadow-md)}.shadow-lg{box-shadow:var(--shadow-lg)}
+.card{background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow)}
+.divider{height:1px;background:var(--border)}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.tnum{font-variant-numeric:tabular-nums}
+.fs10{font-size:10px}.fs18{font-size:18px}.fs24{font-size:24px}.fs28{font-size:28px}.fs32{font-size:32px}.fs40{font-size:40px}.fs48{font-size:48px}.fs56{font-size:56px}
+.lh1{line-height:1}.lh11{line-height:1.1}.lh12{line-height:1.2}.lh13{line-height:1.3}.lh14{line-height:1.4}
+.tr{text-align:right}.tl{text-align:left}
+.p0{padding:0}.p4{padding:4px}.p6{padding:6px}.p8{padding:8px}.p10{padding:10px}.p12{padding:12px}.p14{padding:14px}.p16{padding:16px}.p20{padding:20px}.p24{padding:24px}.p32{padding:32px}.p40{padding:40px}
+.px8{padding-left:8px;padding-right:8px}.px12{padding-left:12px;padding-right:12px}.px16{padding-left:16px;padding-right:16px}.px20{padding-left:20px;padding-right:20px}.px24{padding-left:24px;padding-right:24px}
+.py4{padding-top:4px;padding-bottom:4px}.py6{padding-top:6px;padding-bottom:6px}.py8{padding-top:8px;padding-bottom:8px}.py10{padding-top:10px;padding-bottom:10px}.py12{padding-top:12px;padding-bottom:12px}.py16{padding-top:16px;padding-bottom:16px}.py20{padding-top:20px;padding-bottom:20px}
+.gap4{gap:4px}.gap6{gap:6px}.gap20{gap:20px}.gap32{gap:32px}.gap40{gap:40px}.gap48{gap:48px}
+.mt4{margin-top:4px}.mt6{margin-top:6px}.mt20{margin-top:20px}.mt24{margin-top:24px}.mt32{margin-top:32px}.mt40{margin-top:40px}
+.mb4{margin-bottom:4px}.mb6{margin-bottom:6px}.mb20{margin-bottom:20px}.mb24{margin-bottom:24px}.mb32{margin-bottom:32px}
+.h100{height:100%}.minh100{min-height:100%}.full{width:100%;height:100%}
+.scroll-y{overflow-y:auto}.scroll-x{overflow-x:auto}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:500;background:#fff;color:var(--text);transition:background .12s,border-color .12s,color .12s;white-space:nowrap}
+.btn:hover{background:var(--bg-soft)}
+.btn-pri{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn-pri:hover{background:var(--primary-hover);border-color:var(--primary-hover)}
+.btn-ghost{border-color:transparent;background:transparent}
+.btn-ghost:hover{background:var(--bg-soft)}
+.btn-lg{padding:9px 14px;font-size:13px;font-weight:600}
+.btn-sm{padding:4px 8px;font-size:12px}
+.btn-icon{padding:6px;border-radius:6px}
+.btn-danger{color:var(--red);border-color:var(--border)}
+.btn-danger:hover{background:var(--red-tint);border-color:var(--red)}
+.input{display:block;width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none;transition:border-color .12s,box-shadow .12s;color:var(--text)}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.input-lg{padding:10px 12px;font-size:14px}
+.label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:6px}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;padding:1px 5px;border:1px solid var(--border);border-radius:4px;background:var(--bg-soft);color:var(--text-2)}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:500;background:var(--bg-soft);color:var(--text-2);line-height:1.5;white-space:nowrap}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block}
+.badge-plain::before{display:none}
+.badge-green{background:var(--green-tint);color:var(--green)}
+.badge-amber{background:var(--amber-tint);color:var(--amber)}
+.badge-red{background:var(--red-tint);color:var(--red)}
+.badge-blue{background:var(--primary-tint);color:var(--primary)}
+.badge-purple{background:var(--purple-tint);color:var(--purple)}
+.badge-gray{background:var(--bg-soft);color:var(--text-2)}
+.avatar{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--primary-tint);color:var(--primary);font-size:11px;font-weight:600;flex-shrink:0}
+.avatar-sm{width:22px;height:22px;font-size:10px}
+.avatar-lg{width:56px;height:56px;font-size:18px}
+.avatar-xl{width:88px;height:88px;font-size:28px}
+.av1{background:#dbeafe;color:#1d4ed8}.av2{background:#fce7f3;color:#be185d}.av3{background:#dcfce7;color:#15803d}.av4{background:#fef3c7;color:#a16207}.av5{background:#ede9fe;color:#6d28d9}.av6{background:#fee2e2;color:#b91c1c}.av7{background:#cffafe;color:#0e7490}.av8{background:#fed7aa;color:#9a3412}
+.icon-16 i,.icon-16 svg{width:16px;height:16px}
+.icon-20 i,.icon-20 svg{width:20px;height:20px}
+.icon-24 i,.icon-24 svg{width:24px;height:24px}
+.icon-32 i,.icon-32 svg{width:32px;height:32px}
+.icon-48 i,.icon-48 svg{width:48px;height:48px}
+.app{position:fixed;inset:0;display:flex;background:var(--bg-soft);overflow:hidden}
+.sidebar{width:240px;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.side-top{padding:14px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.logo-mark{width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,var(--primary),var(--primary-light));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:-.5px}
+.logo-text{font-weight:700;font-size:14px;letter-spacing:-.3px}
+.side-nav{flex:1;overflow-y:auto;padding:8px 8px 16px}
+.side-section{padding:12px 10px 6px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.5px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:6px;font-size:13px;color:var(--text-2);font-weight:500;cursor:pointer;width:100%;border-left:2px solid transparent;margin-left:-2px}
+.nav-item:hover{background:var(--bg-soft);color:var(--text)}
+.nav-item.active{background:var(--primary-tint) !important;color:var(--primary) !important;border-left-color:var(--primary)}
+.nav-item.active i,.nav-item.active svg{color:var(--primary) !important}
+.nav-item i,.nav-item svg{width:18px;height:18px;color:var(--text-3);flex-shrink:0}
+.nav-item:hover i,.nav-item:hover svg{color:var(--text-2)}
+.side-foot{padding:10px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:52px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2)}
+.crumb-cur{color:var(--text);font-weight:600;font-size:14px}
+.content{flex:1;overflow-y:auto;padding:20px 24px 40px;background:var(--bg-soft)}
+.page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:16px;flex-wrap:wrap}
+.page-title{font-size:20px;font-weight:700;letter-spacing:-.3px;margin:0}
+.page-sub{font-size:12px;color:var(--text-2);margin-top:2px}
+.filter-bar{display:flex;align-items:center;gap:8px;padding:12px;background:#fff;border:1px solid var(--border);border-radius:8px;margin-bottom:14px;flex-wrap:wrap}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;box-shadow:var(--shadow)}
+.metric-label{font-size:11px;color:var(--text-2);font-weight:500;text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;gap:6px}
+.metric-value{font-size:24px;font-weight:700;letter-spacing:-.5px;margin-top:6px}
+.metric-trend{font-size:11px;color:var(--text-2);margin-top:4px;display:inline-flex;align-items:center;gap:3px}
+.metric-trend.up{color:var(--green)}
+.metric-trend.down{color:var(--red)}
+.table{width:100%;font-size:13px}
+.table th{text-align:left;padding:9px 12px;font-size:11px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);background:var(--bg-soft);position:sticky;top:0}
+.table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.table tbody tr{cursor:pointer}
+.table tbody tr:hover{background:var(--bg-soft)}
+.table tbody tr:last-child td{border-bottom:0}
+.tbl-wrap{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+.face-thumb{width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#dbeafe,#e0e7ff);display:inline-flex;align-items:center;justify-content:center;color:var(--primary);border:1px solid var(--border)}
+.chip-tab{padding:6px 10px;border-radius:6px;font-size:12px;font-weight:500;color:var(--text-2);cursor:pointer}
+.chip-tab.active{background:var(--primary-tint);color:var(--primary)}
+.chip-tab:hover:not(.active){background:var(--bg-soft);color:var(--text)}
+.seg{display:inline-flex;background:var(--bg-soft);padding:3px;border-radius:6px;border:1px solid var(--border)}
+.seg button{padding:4px 10px;border-radius:4px;font-size:12px;font-weight:500;color:var(--text-2)}
+.seg button.active{background:#fff;color:var(--text);box-shadow:var(--shadow-sm)}
+.tab-bar{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.tab-bar button{padding:9px 14px;font-size:13px;font-weight:500;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab-bar button.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tab-bar button:hover:not(.active){color:var(--text)}
+.search-input{position:relative;display:inline-block}
+.search-input i{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-3)}
+.search-input input{padding-left:30px;width:220px}
+.pw-wrap{position:relative;display:block}
+.pw-wrap input{padding-right:40px !important}
+.pw-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#94a3b8;border-radius:6px;background:transparent;border:0;cursor:pointer;padding:0}
+.pw-eye:hover{color:#2563eb;background:rgba(37,99,235,.08)}
+.pw-eye i,.pw-eye svg{width:16px;height:16px}
+.auth-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at top,#142a52 0%,#0a1733 55%,#070f24 100%);overflow-y:auto;padding:40px 20px}
+.auth-card{width:380px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:12px;padding:32px;box-shadow:0 24px 48px -12px rgba(0,0,0,.5),0 8px 16px -4px rgba(0,0,0,.3),0 2px 4px rgba(0,0,0,.15)}
+.auth-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;margin-bottom:32px;color:#fff}
+.auth-brand{display:flex;align-items:center;gap:12px}
+.auth-brand .ts-mark{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px;letter-spacing:-1px;box-shadow:0 6px 16px rgba(37,99,235,.4),inset 0 1px 0 rgba(255,255,255,.2);transform:rotate(-6deg)}
+.auth-brand .ts-word{font-size:32px;font-weight:700;letter-spacing:-1px;background:linear-gradient(180deg,#fff 0%,#93c5fd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.auth-tagline{font-size:11px;font-weight:500;letter-spacing:6px;color:rgba(148,163,184,.7);margin-top:6px;text-transform:uppercase}
+.auth-wrap .auth-foot{color:rgba(148,163,184,.6);margin-top:24px;font-size:11px}
+.theme-toggle{position:fixed;bottom:18px;right:118px;z-index:80;display:inline-flex;background:#fff;padding:3px;border-radius:99px;border:1px solid var(--border);box-shadow:var(--shadow-md)}
+.theme-toggle button{padding:5px 12px;border-radius:99px;font-size:11px;font-weight:600;color:var(--text-2)}
+.theme-toggle button.active{background:var(--primary);color:#fff}
+.pol-wrap{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow-y:auto;padding:40px 20px;background:radial-gradient(ellipse 90% 70% at 50% -10%,#dbeafe 0%,#eff6ff 40%,#f8fafc 100%)}
+.pol-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:24px}
+.pol-brand{display:flex;align-items:center;gap:10px}
+.pol-mark{width:40px;height:40px;border-radius:10px;background:#2563eb;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;letter-spacing:-1px;box-shadow:0 6px 16px -4px rgba(37,99,235,.45)}
+.pol-word{font-size:26px;font-weight:800;letter-spacing:-.6px;color:#0f172a}
+.pol-word em{font-style:normal;color:#2563eb}
+.pol-tagline{font-size:11px;font-weight:600;letter-spacing:2.5px;color:#64748b;margin-top:8px;text-transform:uppercase}
+.pol-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:600;margin-bottom:16px}
+.pol-card{width:400px;max-width:100%;background:#fff;border:1px solid #e6eaf1;border-radius:14px;padding:36px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 12px 32px -8px rgba(16,24,40,.12)}
+.pol-foot{color:#94a3b8;margin-top:24px;font-size:11px;text-align:center}
+.pol-title{margin:0;font-size:19px;font-weight:700;letter-spacing:-.3px;color:#111827;text-align:center}
+.pol-sub{margin:8px 0 26px;font-size:13px;color:#6b7280;text-align:center}
+.pol-input{display:block;width:100%;padding:10px 12px;border:1px solid #d7dce5;border-radius:8px;font-size:13px;background:#fff;color:#111827;transition:border-color .12s,box-shadow .12s}
+.pol-input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.14)}
+.pol-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px 14px;border-radius:8px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;box-shadow:0 4px 12px -2px rgba(37,99,235,.35);transition:background .12s}
+.pol-btn:hover{background:#1d4ed8}
+.pol-link{color:#2563eb;font-weight:500;cursor:pointer}
+.polished .card,.polished .metric-card,.polished .tbl-wrap,.polished .kanban-col,.polished .filter-bar{border-color:#e6eaf1;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 12px -4px rgba(16,24,40,.07)}
+.polished .card,.polished .metric-card{border-radius:10px}
+.polished .btn-pri{box-shadow:0 3px 8px -2px rgba(37,99,235,.35)}
+.polished .topbar{box-shadow:0 1px 2px rgba(16,24,40,.03)}
+.polished .table th{background:#f6f8fb;color:#5b6b81}
+.polished .logo-mark{width:28px;height:28px;font-size:15px;border-radius:7px;background:#2563eb}
+.polished .logo-text{font-size:15px;letter-spacing:-.4px}
+.polished .side-top{padding:16px}
+.polished .task-card{box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.polished .mobile-frame{border-color:#e6eaf1;box-shadow:0 2px 4px rgba(16,24,40,.04),0 24px 48px -12px rgba(16,24,40,.18)}
+.polished .mobile-body{background:#fff}
+.polished .m-card{border-color:#e6eaf1;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 10px -4px rgba(16,24,40,.06)}
+.polished .kpi-mini{background:#fff;border:1px solid #e6eaf1;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.polished .kpi-mini .v{color:#2563eb}
+.polished .mobile-tabbar{box-shadow:0 -1px 2px rgba(16,24,40,.04)}
+.polished .cta-big{border-radius:12px;box-shadow:0 8px 20px -6px rgba(37,99,235,.45)}
+.polished .cta-big.danger{box-shadow:0 8px 20px -6px rgba(239,68,68,.45)}
+.polished .auth-wrap{background:radial-gradient(ellipse 90% 70% at 50% -10%,#dbeafe 0%,#eff6ff 40%,#f8fafc 100%)}
+.polished .ts-word{background:none;-webkit-background-clip:initial;background-clip:initial;color:#0f172a}
+.polished .auth-tagline{color:#64748b}
+.polished .auth-foot{color:#94a3b8}
+.kanban-col{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:400px;box-shadow:var(--shadow)}
+.kanban-head{display:flex;align-items:center;justify-content:space-between;padding:4px 6px 8px;border-bottom:1px solid var(--border);margin-bottom:4px}
+.task-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;cursor:grab;transition:border-color .12s,box-shadow .12s;box-shadow:var(--shadow-sm)}
+.task-card:hover{border-color:var(--border-strong);box-shadow:var(--shadow-md)}
+.task-title{font-size:13px;font-weight:500;margin-bottom:6px;line-height:1.35}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dot-green{background:var(--green)}.dot-amber{background:var(--amber)}.dot-red{background:var(--red)}.dot-blue{background:var(--primary)}.dot-purple{background:var(--purple)}.dot-gray{background:var(--text-3)}
+.checkbox{width:14px;height:14px;border:1.5px solid var(--border-strong);border-radius:3px;flex-shrink:0;background:#fff;display:inline-flex;align-items:center;justify-content:center}
+.checkbox.checked{background:var(--primary);border-color:var(--primary);color:#fff}
+.checkbox.checked::after{content:'\2713';font-size:9px;font-weight:700}
+.toggle{width:32px;height:18px;border-radius:99px;background:var(--border);position:relative;flex-shrink:0;cursor:pointer;transition:background .12s}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm);transition:left .12s}
+.toggle.on{background:var(--primary)}
+.toggle.on::after{left:16px}
+.drawer-overlay{position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:50;display:flex;justify-content:flex-end}
+.drawer{width:420px;background:#fff;height:100%;display:flex;flex-direction:column;animation:drawIn .25s ease}
+@keyframes drawIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
+.drawer-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.drawer-body{flex:1;overflow-y:auto;padding:20px}
+.drawer-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;background:var(--bg-soft)}
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .15s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;border-radius:10px;box-shadow:var(--shadow-lg);max-width:520px;width:100%;max-height:80vh;display:flex;flex-direction:column;animation:modalIn .2s ease}
+.modal-lg{max-width:680px}
+.modal-xl{max-width:840px}
+.modal-sm{max-width:420px}
+@keyframes modalIn{from{transform:translateY(8px);opacity:.5}to{transform:translateY(0);opacity:1}}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-body{flex:1;overflow-y:auto;padding:20px}
+.modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;background:var(--bg-soft);border-radius:0 0 10px 10px}
+.picker-btn{position:fixed;bottom:18px;right:18px;z-index:80;background:#0f172a;color:#fff;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:500;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:6px}
+.picker-btn:hover{background:#1e293b}
+.picker-panel{position:fixed;bottom:60px;right:18px;z-index:80;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-lg);width:360px;max-height:70vh;display:flex;flex-direction:column;overflow:hidden}
+.picker-head{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:var(--text-2)}
+.picker-list{flex:1;overflow-y:auto;padding:8px}
+.picker-section{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.5px;text-transform:uppercase;padding:8px 8px 4px}
+.picker-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;font-size:13px;color:var(--text-2);cursor:pointer;width:100%}
+.picker-item:hover{background:var(--bg-soft);color:var(--text)}
+.picker-item.active{background:var(--primary-tint);color:var(--primary);font-weight:500}
+.picker-tag{margin-left:auto;font-size:10px;color:var(--text-3);font-family:'JetBrains Mono',monospace}
+.empty-state{padding:60px 20px;text-align:center;color:var(--text-2)}
+.empty-state .ic{width:48px;height:48px;border-radius:12px;background:var(--bg-soft);display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--text-3)}
+.empty-state h3{font-size:15px;font-weight:600;color:var(--text);margin:0 0 4px}
+.empty-state p{margin:0 0 16px;font-size:13px}
+.skel{background:linear-gradient(90deg,#f1f5f9 0%,#e2e8f0 50%,#f1f5f9 100%);background-size:200% 100%;animation:skel 1.4s ease infinite;border-radius:4px}
+@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.alert{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;font-size:13px;border:1px solid}
+.alert-warn{background:var(--amber-tint);border-color:#fde68a;color:#92400e}
+.alert-error{background:var(--red-tint);border-color:#fecaca;color:#991b1b}
+.alert-info{background:var(--primary-tint);border-color:#bfdbfe;color:#1e40af}
+.alert-success{background:var(--green-tint);border-color:#a7f3d0;color:#065f46}
+.qr-tile{aspect-ratio:1;background:repeating-conic-gradient(#0f172a 0% 25%,#fff 0% 50%) 0 0/12px 12px;border:1px solid var(--border);border-radius:6px}
+.chart-bar{display:flex;align-items:flex-end;gap:6px;height:140px;padding:8px 4px}
+.chart-bar div{flex:1;background:var(--primary-tint);border-radius:3px 3px 0 0;position:relative}
+.chart-bar div::after{content:'';position:absolute;left:0;right:0;bottom:0;background:var(--primary);border-radius:3px 3px 0 0;height:var(--h,40%)}
+.line-chart{height:160px;position:relative}
+.line-chart svg{width:100%;height:100%}
+.donut{width:160px;height:160px}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.progress{height:6px;background:var(--bg-soft);border-radius:3px;overflow:hidden}
+.progress > div{height:100%;background:var(--primary);border-radius:3px}
+.mobile-frame{width:390px;height:780px;background:#fff;border:1px solid var(--border);border-radius:32px;box-shadow:var(--shadow-lg);overflow:hidden;display:flex;flex-direction:column;position:relative;flex-shrink:0}
+.mobile-status{height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:12px;font-weight:600;flex-shrink:0}
+.mobile-status .right{display:flex;align-items:center;gap:5px}
+.mobile-body{flex:1;overflow-y:auto;overflow-x:hidden;background:var(--bg-soft);position:relative}
+.mobile-tabbar{height:62px;background:#fff;border-top:1px solid var(--border);display:flex;align-items:stretch;flex-shrink:0;padding-bottom:6px}
+.mobile-tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--text-3);font-size:10px;font-weight:500}
+.mobile-tabbar button.active{color:var(--primary)}
+.mobile-tabbar i,.mobile-tabbar svg{width:20px;height:20px}
+.mobile-page{padding:16px;display:flex;flex-direction:column;gap:14px}
+.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px}
+.mobile-title{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.mobile-stage{display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:wrap;padding:24px;min-height:100%}
+.mobile-label{font-size:11px;font-weight:500;color:var(--text-2);margin-bottom:8px;text-align:center}
+.cta-big{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;border-radius:12px;font-size:15px;font-weight:600;color:#fff;background:var(--primary)}
+.cta-big.danger{background:var(--red)}
+.cta-big.amber{background:var(--amber)}
+.face-frame{aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#1e293b,#0f172a);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4)}
+.face-frame::before{content:'';position:absolute;inset:6%;border:2px solid rgba(255,255,255,.4);border-radius:50%;border-style:dashed}
+.map-placeholder{aspect-ratio:16/9;border-radius:8px;background:linear-gradient(135deg,#e0f2fe,#dbeafe,#ede9fe);position:relative;overflow:hidden;border:1px solid var(--border)}
+.map-placeholder::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.05) 1px,transparent 1px);background-size:32px 32px}
+.map-pin{position:absolute;width:24px;height:24px;border-radius:50% 50% 50% 0;background:var(--primary);transform:rotate(-45deg);border:2px solid #fff;box-shadow:var(--shadow)}
+.map-pin::after{content:'';position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%;background:#fff}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+.grid-1-2{display:grid;grid-template-columns:1fr 2fr;gap:16px}
+.section-title{font-size:13px;font-weight:600;margin:0}
+.section-sub{font-size:12px;color:var(--text-2)}
+.list-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--border)}
+.list-row:last-child{border-bottom:0}
+.list-row:hover{background:var(--bg-soft)}
+.steps{display:flex;align-items:center;gap:8px;margin-bottom:32px}
+.step-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-3);background:#fff}
+.step-dot.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.step-dot.active{border-color:var(--primary);color:var(--primary);background:#fff}
+.step-line{flex:1;height:1.5px;background:var(--border)}
+.step-line.done{background:var(--primary)}
+.cur-toggle{display:inline-flex;background:var(--bg-soft);padding:2px;border-radius:6px;border:1px solid var(--border)}
+.cur-toggle button{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:var(--text-2)}
+.cur-toggle button.active{background:#fff;color:var(--text);box-shadow:var(--shadow-sm)}
+.kpi-mini{display:flex;flex-direction:column;gap:2px;padding:10px 12px;background:var(--bg-soft);border-radius:8px;flex:1}
+.kpi-mini .v{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.kpi-mini .l{font-size:11px;color:var(--text-2)}
+.m-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:var(--shadow-sm)}
+.notif-dot{position:absolute;top:5px;right:5px;width:6px;height:6px;background:var(--red);border-radius:50%}
+.bd-dash{border:1.5px dashed var(--border-strong)}
+.skip{padding:4px 8px;font-size:11px;color:var(--primary);font-weight:500}
+.split{height:1px;background:var(--border);margin:8px 0}
+/* preview page chrome */
+body{margin:0;background:#0b1830;padding:28px 16px 60px}
+.preview-head{max-width:1200px;margin:0 auto 8px;color:#e2e8f0;font-family:'Inter',system-ui,sans-serif}
+.preview-head h1{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 4px}
+.preview-head p{font-size:13px;color:#94a3b8;margin:0}
+.mobile-stage{border:0 !important;background:transparent !important}
+</style>
+</head>
+<body>
+<div class="preview-head">
+<h1>TingSync — Employee Mobile UI</h1>
+<p>Exact design extracted from the original TingSync UI/UX layout. Screens shown as designed.</p>
+</div>
+<div class="mobile-stage" style="color: rgb(16, 16, 16); border-color: rgb(61, 108, 246); border-style: dashed; border-width: 1.8px; box-shadow: 0px 0px 0px 0px #FFFFFF00; width: 1225px; height: 806px; position: absolute; left: -32px; top: -23px">
+
+
+<div>
+<div class="mobile-label">Employee mobile login</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background:#fff;color:#0f172a"><div class="right"></div></div>
+<div class="mobile-body" style="padding: 32px 24px 24px; overflow-x: hidden; background-color: #FFFFFF">
+<div style="text-align:center;margin-bottom:28px">
+<div style="display: inline-block; padding: 5px 14px; border-radius: 99px; background: rgba(0,205,76,.10); border: 1px solid rgba(0,205,76,.35); margin-bottom: 16px; box-shadow: 0px 4px 12px 0px #0000007A"><span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#00CD4C">● Employee access</span></div>
+<div style="font-size: 30px; font-weight: 800; letter-spacing: -1.2px; line-height: 1; color: #0f172a; text-shadow: 0px 4px 12px #086BF67A">ting<span style="color:#0082FF">sync</span></div>
+<div style="margin-top: 10px; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #444445">Attendance · GPS Verified</div>
+</div>
+<div style="background: #fff; border: 1px solid #dbeafe; border-radius: 14px; padding: 22px 20px; box-shadow: 0px 8px 12px 0px #0101017A">
+<div style="font-size:17px;font-weight:700;color:#0f172a;text-align:center;letter-spacing:-.3px">Sign in to your account</div>
+<div style="font-size: 12px; color: #3E3D3D; text-align: center; margin-top: 6px; margin-bottom: 22px">Use the credentials from your admin.</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div><div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:6px">Company code</div><div style="position:relative"><input class="input mono" value="ACME-2024" style="border-color:#93c5fd;border-width:1px;padding-left:34px;font-size:13px;height:40px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="building-2" style="width:14px;height:14px;color:#94a3b8;position:absolute;left:12px;top:50%;transform:translateY(-50%)"></i></div></div>
+<div><div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:6px">Employee ID</div><div style="position:relative"><input class="input mono" value="EMP-0098" style="border-color: #93c5fd; border-width: 1px; padding-left: 34px; font-size: 13px; height: 40px; color: #3E3D3D"><i data-lucide="user" style="width:14px;height:14px;color:#94a3b8;position:absolute;left:12px;top:50%;transform:translateY(-50%)"></i></div></div>
+<div><div class="fx jb ac" style="margin-bottom:6px"><span style="font-size:12px;font-weight:600;color:#374151">PIN</span><span style="font-size: 10px; color: #3E3D3D">4–6 digits</span></div><div style="position:relative"><input class="input mono" type="password" value="0000" maxlength="6" style="border-color:#93c5fd;border-width:1px;padding-left:34px;padding-right:38px;font-size:15px;height:40px;letter-spacing:6px;text-align:center"><i data-lucide="lock" style="width:14px;height:14px;color:#94a3b8;position:absolute;left:12px;top:50%;transform:translateY(-50%)"></i><button class="btn-icon" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:4px" title="Show / hide"><i data-lucide="eye" style="width:15px;height:15px;color:#94a3b8"></i></button></div></div>
+<label class="fx ac jb" style="cursor:pointer"><span class="fx ac gap6" style="font-size: 12px; color: #3E3D3D"><span class="checkbox checked"></span>Remember me</span><span style="font-size: 11px; color: #3E3D3D">on this device</span></label>
+<button class="btn btn-pri btn-lg" style="width: 100%; justify-content: center; background: linear-gradient(180deg,#2563eb,#0023E8,#00136C); border-radius: 10px; height: 46px; font-weight: 600; box-shadow: 0px 6px 14px 0px #2563EBD4">Sign in</button>
+<div style="display:flex;align-items:center;gap:10px;margin:4px 0"><div style="flex:1;height:1px;background:#e5e7eb"></div><span style="font-size: 10px; color: #3E3D3D; font-weight: 500; letter-spacing: 1px; text-transform: uppercase">Or</span><div style="flex:1;height:1px;background:#e5e7eb"></div></div>
+<button class="btn" style="width: 100%; justify-content: center; border: 1px solid #dbeafe; color: #2563eb; height: 46px; border-radius: 10px; font-weight: 600; gap: 8px; background-color: #68A7F87A"><i data-lucide="fingerprint" style="width:18px;height:18px"></i>Unlock with biometrics</button>
+</div>
+</div>
+<div style="text-align:center;margin-top:18px"><span style="font-size: 11px; color: #5E5E5E">Forgot your PIN?</span> <a style="font-size:11px;color:#2563eb;font-weight:600;cursor:pointer">Contact your admin</a></div>
+<div style="text-align: center; margin-top: 14px; font-size: 10px; color: #3D3E41">Protected by TingSync · <a style="color: #343434">Privacy</a> · <a style="color: #343434">Terms</a></div>
+</div>
+<div class="mobile-tabbar" style="visibility:hidden"><button></button></div>
+</div>
+</div>
+
+
+
+<div>
+
+<div class="mobile-label">Home • Clocked in</div><div class="mobile-frame">
+
+<div class="mobile-body" style="background-color: #FFFFFF">
+
+<div style="color: #fff; padding: 18px 20px 32px; border-radius: 0 0 20px 20px; width: 389px; height: 289px; background: linear-gradient(180deg, #02B2AC, #28211a); border-width: 1px; border-style: solid; border-color: #2AC1BC">
+
+<div style="text-align:center;margin-bottom:20px;margin-top:26px"><div style="display: inline-block; padding: 6px 18px; border-radius: 99px; background: rgba(255,255,255,.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.2); box-shadow: 0px 4px 12px 0px #00000059"><div style="font-size:22px;font-weight:800;letter-spacing:-.8px;line-height:1;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.25)">ting<span style="color: #003F7C; text-shadow: 0 0 12px rgba(0,130,255,.9)">sync</span></div></div><div style="margin-top: 8px; font-size: 9px; font-weight: 600; letter-spacing: 2.4px; text-transform: uppercase; color: rgba(255,255,255,.6); width: 343px; height: 19px">Attendance · GPS Verified</div></div><div class="fx ac jb">
+<div><div class="fs13" style="opacity: .85; text-align: center">Good morning</div><div class="fs20 fw7 mt2" style="text-align: center">Ana Reyes</div><div class="fs12 mt2" style="opacity: .75; text-align: center">Friday, June 20, 2026</div></div><div class="avatar" style="width: 42px; height: 42px; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 14px; border: 1.5px solid rgba(255,255,255,.35); box-shadow: 0px 4px 12px 0px #0000009E">AR</div>
+
+</div>
+</div>
+<div style="padding: 0 16px; margin-top: -80px; background-color: #FFFFFF00; position: relative; z-index: 2">
+
+<div class="m-card" style="padding: 18px; box-shadow: 0px 4px 12px 0px #000000; background: linear-gradient(200deg, #034A88, #1685B2, #034A88); width: 360px; height: 176px; overflow: visible; opacity: 1; border-radius: 12px; position: relative; border-style: none; margin-bottom: 20px">
+<div class="fx ac jb mb14"><div class="fs10 fw7 muted" style="letter-spacing: .6px; color: #000000">TODAY</div><span class="badge badge-green" style="color: #007D54">• Clocked in</span></div>
+<div class="fx ac gap16" style="position: relative">
+<div><div class="fs32 fw7 tnum" style="letter-spacing:-1px;line-height:1">4:12</div><div class="muted fs11 mt4" style="color: #000000">hours so far</div></div>
+<div style="width:1px;height:36px;background:var(--border)"></div>
+<div class="f1"><div class="fw6 fs13">Head Office HQ</div><div class="muted fs11 mt2" style="color: #000000">In at 08:02 AM</div></div>
+</div><button class="cta-big mt16" style="background: linear-gradient(180deg, #1A0000, #6F0000, #1A0000); color: #fff; border-radius: 10px; height: 55px; font-size: 14px; width: 236px; flex-direction: row; text-align: center; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; box-shadow: 0px 4px 12px 0px #0000007A">Clock out</button>
+
+</div><div class="fx gap16 mt14">
+<div class="m-card f1" style="padding: 12px; border-color: #9DBBF8; border-width: 0.5px; border-style: double; box-shadow: 0px 7px 12px 0px #0000009E"><div class="fs20 fw7 tnum" style="letter-spacing:-.5px">38.5</div><div class="muted fs11 mt2">hours this week</div></div>
+<div class="m-card f1" style="padding: 12px; border-color: #9DBBF8; border-width: 0.5px; border-style: double; box-shadow: 0px 7px 12px 0px #0000009E"><div class="fs20 fw7 tnum" style="letter-spacing:-.5px">12</div><div class="muted fs11 mt2">leave days left</div></div>
+</div>
+<div class="fw6 fs13 mt20 mb10" style="color: #252424">Announcements</div>
+<div class="fx col gap8">
+<div class="m-card fx ac gap10" style="padding: 12px; background-color: #CBD9FB; border-width: 1.8px; border-style: dotted; border-color: #6DA2F2"><div style="width: 36px; height: 36px; border-radius: 10px; background: #fef3c7; color: #a16207; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-width: 1px; border-style: solid; border-color: #869FE4"><i data-lucide="megaphone" style="width:16px;height:16px"></i></div><div class="f1"><div class="fw6 fs13">Payroll cut-off June 25</div><div class="muted fs11 mt2">Submit OT forms before Friday.</div></div></div>
+<div class="m-card fx ac gap10" style="padding: 12px; background-color: #CBD9FB; border-width: 1.8px; border-style: dotted; border-color: #6DA2F2"><div style="width: 36px; height: 36px; border-radius: 10px; background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-width: 1px; border-style: solid; border-color: #869FE4"><i data-lucide="hard-hat" style="width:16px;height:16px"></i></div><div class="f1"><div class="fw6 fs13">Safety drill at HQ</div><div class="muted fs11 mt2">Today, 3:00 PM. Attendance required.</div></div></div>
+</div>
+<div style="height:16px"></div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button class="active" style="color: #003FFF; background-color: #FFFFFF; width: 80px; height: 64px"><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+<div>
+<div class="mobile-label">Home • Not clocked in</div>
+<div class="mobile-frame">
+
+
+<div class="mobile-body" style="background-color: #FFFFFF">
+
+<div style="color: #fff; padding: 18px 20px 32px; border-radius: 0 0 20px 20px; width: 389px; height: 286px; background: linear-gradient(180deg, #02B2AC, #28211a); border-width: 1px; border-style: solid; border-color: #2AC1BC">
+
+<div style="text-align:center;margin-bottom:20px;margin-top:26px"><div style="display: inline-block; padding: 6px 18px; border-radius: 99px; background: rgba(255,255,255,.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.2); box-shadow: 0px 4px 12px 0px #00000059"><div style="font-size:22px;font-weight:800;letter-spacing:-.8px;line-height:1;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.25)">ting<span style="color: #003F7C; text-shadow: 0 0 12px rgba(0,130,255,.9)">sync</span></div></div><div style="margin-top:8px;font-size:9px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;color:rgba(255,255,255,.6)">Attendance · GPS Verified</div></div>
+<div class="fx ac jb">
+<div style="text-align: center"><div class="fs13" style="opacity: .85; text-align: center">Good morning</div><div class="fs20 fw7 mt2" style="text-align: center">Jose Santos</div><div class="fs12 mt2" style="opacity: .75; text-align: center">Friday, June 20, 2026</div></div>
+<div class="avatar" style="width: 42px; height: 42px; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 14px; border: 1.5px solid rgba(255,255,255,.35); box-shadow: 0px 4px 12px 0px #0000009E">JS</div>
+</div></div><div style="padding: 0 16px; margin-top: -80px; position: relative; z-index: 2; background-color: #FFFFFF00; width: 100%">
+<div class="m-card" style="padding: 18px; background: linear-gradient(200deg, #034A88, #1685B2, #034A88); box-shadow: 0px 4px 12px 0px #00000040; border-radius: 14px; width: 360px; overflow: visible; border-style: none; margin-bottom: 20px; height: 176px">
+<div class="fx ac jb mb14"><div class="fs10 fw7 muted" style="letter-spacing: .6px; color: #000000">TODAY</div><span class="badge badge-gray">Not clocked in</span></div>
+<div class="fw5 fs15 mb4">Ready to start your shift?</div>
+<div class="muted fs12" style="color: #000000">Scheduled: 8:00 AM — 5:00 PM at Head Office HQ</div>
+<button class="cta-big mt16" style="color: #fff; border-radius: 10px; height: 56px; font-size: 14px; box-shadow: 0px 4px 12px 0px #0000007A; background: linear-gradient(180deg, #00051A, #000D6F, #00051A); width: 238px; margin-left: auto; margin-right: auto"><i data-lucide="play" style="width:16px;height:16px"></i>Clock in</button>
+</div>
+<div class="fx gap16 mt14">
+<div class="m-card f1" style="padding: 12px; border-color: #9DBBF8; border-width: 0.5px; border-style: double; box-shadow: 0px 7px 12px 0px #0000009E"><div class="fs20 fw7 tnum">0.0</div><div class="muted fs11 mt2">hours this week</div></div>
+<div class="m-card f1" style="padding: 12px; border-color: #9DBBF8; border-width: 0.5px; border-style: double; box-shadow: 0px 7px 12px 0px #0000009E"><div class="fs20 fw7 tnum">9</div><div class="muted fs11 mt2">leave days left</div></div>
+</div>
+<div class="fw6 fs13 mt20 mb10" style="color: #252424">Announcements</div>
+<div class="m-card fx ac gap10" style="padding: 12px; background-color: #CBD9FB; border-width: 1.8px; border-style: dotted; border-color: #6DA2F2"><div style="width: 36px; height: 36px; border-radius: 10px; background: #fef3c7; color: #a16207; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-width: 1px; border-style: solid; border-color: #869FE4"><i data-lucide="megaphone" style="width:16px;height:16px"></i></div><div class="f1"><div class="fw6 fs13">Payroll cut-off June 25</div><div class="muted fs11 mt2">Submit OT forms before Friday.</div></div></div>
+
+</div>
+
+</div><div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button class="active" style="color: #003FFF; background-color: #FFFFFF; width: 77px; height: 61px"><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Home • Compact variant</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background-color: #FFFFFF"><span><br></span><div class="right"></div></div>
+<div class="mobile-body" style="background-color: #FFFFFF">
+<div class="p16" style="background-color: #FFFFFF">
+<div class="fx ac jb mb20"><div><div class="muted fs12" style="color: #040303">Friday, Jun 20</div><div class="fs20 fw7 mt2" style="color: #1972DE; text-transform: capitalize">Good morning, Ana</div></div><div class="avatar" style="width: 42px; height: 42px; background: #2563eb; color: #fff; font-size: 14px; font-weight: 700; box-shadow: 0px 7px 12px 0px #0000009E">AR</div></div>
+<div class="tc py32" style="border: 1px solid var(--border); border-radius: 20px; background: linear-gradient(180deg, #83B8FD, #4684DB, #1A56AA); box-shadow: 0px 4px 12px 0px #0000009E; width: 360px; height: 207px">
+
+<div class="fs48 fw7 tnum mt8 brand" style="letter-spacing: -1.5px; color: #0033A1">04:12<div class="muted fs11 fw6 brand" style="letter-spacing: .6px; height: 28px; color: #0033A1">CURRENTLY CLOCKED IN</div></div>
+<div class="muted fs12" style="color: #FFFFFF; text-transform: capitalize">since 8:02 AM • HQ</div>
+<button class="cta-big" style="background: linear-gradient(180deg, #08308E, #000F33, #002780); width: auto; padding: 0 32px; margin: 24px auto 0; height: 44px; border-radius: 10px">Clock out</button>
+</div>
+<div class="fx ac jb mt24 mb12"><div class="fw6 fs13" style="color: #222121">This week</div><div class="muted fs11" style="color: #333333">Mon — Sun</div></div>
+<div class="fx gap8 mb24">
+<div class="f1 tc p8 bd rad6" style="border-color: #6B8DF3; border-style: dashed; border-width: 0.8px; box-shadow: 0px 4px 12px 0px #00000080"><div class="fs10 muted" style="color: #070707">Mon</div><div class="fw6 fs13 mt2 tnum" style="color: #750110">8.2h</div></div>
+<div class="f1 tc p8 bd rad6" style="border-color: #6B8DF3; border-style: dashed; border-width: 0.8px; box-shadow: 0px 4px 12px 0px #00000080"><div class="fs10 muted" style="color: #070707">Tue</div><div class="fw6 fs13 mt2 tnum" style="color: #750110">9.1h</div></div>
+<div class="f1 tc p8 bd rad6" style="border-color: #6B8DF3; border-style: dashed; border-width: 0.8px; box-shadow: 0px 4px 12px 0px #00000080"><div class="fs10 muted" style="color: #070707">Wed</div><div class="fw6 fs13 mt2 tnum" style="color: #750110">8.5h</div></div>
+<div class="f1 tc p8 bd rad6" style="border-color: #6B8DF3; border-style: dashed; border-width: 0.8px; box-shadow: 0px 4px 12px 0px #00000080"><div class="fs10 muted" style="color: #070707">Thu</div><div class="fw6 fs13 mt2 tnum" style="color: #750110">9.0h</div></div>
+<div class="f1 tc p8 bd rad6" style="border-color: var(--primary); background-color: #ABCCF6"><div class="fs10 brand fw6" style="color: #0035AA">Fri</div><div class="fw7 fs13 mt2 tnum brand" style="color: #0035AA">4.1h</div></div>
+</div>
+<div class="fx col gap8">
+<button class="fx ac gap10 p12 bd rad8" style="border-width: 1.6px; border-style: dotted; border-color: #1B47E0; background-color: #FFFFFF; text-transform: capitalize"><div style="width: 32px; height: 32px; border-radius: 8px; color: var(--primary); display: flex; align-items: center; justify-content: center; background-color: #BBBBBB"><i data-lucide="calendar-plus" style="width:16px;height:16px"></i></div><div class="f1 tl"><div class="fw6 fs13" style="color: #3D3636; text-transform: none">File a Leave</div><div class="muted fs11" style="color: #26282A">12 vacation days left</div></div><i data-lucide="chevron-right" style="width: 16px; height: 16px; color: #3E4145"></i></button>
+<button class="fx ac gap10 p12 bd rad8" style="border-width: 1.6px; border-style: dotted; border-color: #1B47E0; background-color: #FFFFFF; text-transform: capitalize"><div style="width: 32px; height: 32px; border-radius: 8px; color: var(--green); display: flex; align-items: center; justify-content: center; background-color: #BBBBBB"><i data-lucide="file-text" style="width:16px;height:16px"></i></div><div class="f1 tl"><div class="fw6 fs13" style="color: #3D3636">Latest payslip</div><div class="muted fs11" style="color: #26282A">Jun 1–15 • ready to view</div></div><i data-lucide="chevron-right" style="width: 16px; height: 16px; color: #3E4145"></i></button>
+</div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button class="active"><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Check in • Step 1 of 3</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background-color: #FFFFFF"><div class="right"></div></div>
+<div class="mobile-body" style="background-color: #FFFFFF">
+
+<div class="p16" style="background-color: #FFFFFF">
+<button class="btn-ghost fx ac gap6 fs14 fw6 mb16" style="color: #030303"><i data-lucide="chevron-left" style="width:18px;height:18px"></i>Check in</button>
+<div class="fx gap6 mb20"><div class="f1" style="height:4px;border-radius:2px;background:var(--primary)"></div><div class="f1" style="height:4px;border-radius:2px;background:var(--border)"></div><div class="f1" style="height:4px;border-radius:2px;background:var(--border)"></div></div>
+<div class="fs20 fw7" style="color: #030303">Confirm your location</div>
+<div class="muted fs13 mt6 mb20" style="color: #29292A">You must be inside the site boundary to clock in.</div>
+<div class="map-placeholder" style="aspect-ratio: 1; border-radius: 16px; margin-bottom: 16px; box-shadow: 0px 7px 12px 0px #0A0A0A9E; background: url(&quot;./screenshot-2026-07-03-145717-mr4kzo5a.png&quot;) center / cover no-repeat">
+<div style="position:absolute;top:50%;left:50%;width:200px;height:200px;border:2px solid var(--primary);border-radius:50%;transform:translate(-50%,-50%);background:rgba(37,99,235,.10)"></div>
+<div style="position:absolute;top:50%;left:50%;width:14px;height:14px;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 5px rgba(37,99,235,.25)"></div>
+<div style="position:absolute;top:38%;left:52%;background:#0f172a;color:#fff;font-size:11px;padding:4px 8px;border-radius:6px;font-weight:500">Head Office HQ</div>
+</div>
+<div class="m-card fx ac gap10" style="padding: 12px; border-width: 1px; border-color: #2A68E4; border-style: dashed; text-shadow: 0px 4px 12px #0000009E; box-shadow: 0px 4px 12px 0px #00000080"><div style="width: 32px; height: 32px; border-radius: 50%; background: var(--green-tint); color: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0px 4px 12px 0px #00000099"><i data-lucide="check" style="width:16px;height:16px"></i></div><div class="f1"><div class="fw6 fs13">You're inside Head Office HQ</div><div class="muted fs11 mt2">Accuracy ±4m • 14 m from center</div></div></div>
+<button class="cta-big mt20" style="background: linear-gradient(180deg, #0039B5, #031143, #063399); border-radius: 10px; box-shadow: 0px 5px 12px 0px #0000009E; width: 224px; height: 46px">Continue</button>
+</div></div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Check in • Step 2 of 3</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background-color: #FFFFFF"></div>
+<div class="mobile-body" style="background-color: #FFFFFF">
+<div class="p16" style="background-color: #FFFFFF">
+<button class="btn-ghost fx ac gap6 fs14 fw6 mb16" style="color: #171717"><i data-lucide="chevron-left" style="width:18px;height:18px"></i>Review</button>
+<div class="fx gap6 mb20"><div class="f1" style="height:4px;border-radius:2px;background:var(--primary)"></div><div class="f1" style="height:4px;border-radius:2px;background:var(--primary)"></div><div class="f1" style="height:4px;border-radius:2px;background:var(--border)"></div></div>
+<div class="fs20 fw7 mb20" style="color: #171717">Confirm clock-in</div>
+<div class="m-card" style="padding:0;overflow:hidden;margin-bottom:16px">
+<div class="fx ac gap12 p16 bd-b" style="background: linear-gradient(180deg, #003978F4, #0058F9, #003876); border-style: none; box-shadow: 0px 4px 12px 0px #0000009E"><div class="avatar avatar-lg" style="width: 48px; height: 48px; background: #2563eb; color: #fff; font-weight: 700; font-size: 16px; box-shadow: 0px 7px 12px 0px #0000009E">AR</div><div class="f1"><div class="fw6" style="color: #FFFFFF; text-align: left">Ana Reyes</div><div class="muted fs12" style="color: #FFFFFF; text-align: left">HR Officer • EMP-0098</div></div></div>
+<div class="p16 fx col gap10" style="box-shadow: 0px 4px 12px 0px #0000009E; background-color: #BFE2DA">
+<div class="fx ac gap10"><i data-lucide="clock" style="width: 16px; height: 16px; color: #262424"></i><span class="muted fs12 f1" style="color: #262424">Time</span><span class="fw6 mono tnum" style="color: #373333">9:41 AM</span></div>
+<div class="fx ac gap10"><i data-lucide="calendar" style="width: 16px; height: 16px; color: #262424"></i><span class="muted fs12 f1" style="color: #262424">Date</span><span class="fw6" style="color: #373333">Fri, Jun 20, 2026</span></div>
+<div class="fx ac gap10"><i data-lucide="map-pin" style="width: 16px; height: 16px; color: #262424"></i><span class="muted fs12 f1" style="color: #262424">Location</span><span class="fw6" style="color: #373333">Head Office HQ</span></div>
+</div>
+</div>
+<button class="cta-big" style="background: linear-gradient(180deg, #2563EB, #00194E, #2563EB); border-radius: 10px; height: 52px; box-shadow: 0px 6px 12px 0px #0000009E"><i data-lucide="check" style="width:18px;height:18px"></i>Confirm clock-in</button>
+<button class="w100 jc fs13 muted mt8" style="background: none; padding: 10px; color: #171717">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Check in • Success</div>
+<div class="mobile-frame">
+
+<div class="mobile-body" style="background:#10b981;color:#fff;display:flex;flex-direction:column">
+<div class="f1 fx col ac jc" style="padding:32px 24px;text-align:center">
+<div style="width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; margin-bottom: 32px; box-shadow: 0px 8px 12px 0px #0000009E"><div style="width:84px;height:84px;border-radius:50%;background:#fff;color:#10b981;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.15)"><i data-lucide="check" style="width:44px;height:44px"></i></div></div>
+<div class="fs28 fw7">Clocked in</div>
+<div class="fs15 mt6" style="color:rgba(255,255,255,.85)">at 8:02 AM</div>
+<div class="mt32 w100" style="background:rgba(255,255,255,.12);border-radius:16px;padding:16px;text-align:left;border:1px solid rgba(255,255,255,.15)">
+<div class="fx ac jb py6" style="border-bottom:1px solid rgba(255,255,255,.15)"><span class="fs13" style="opacity:.85">Site</span><span class="fw6">Head Office HQ</span></div>
+<div class="fx ac jb py6" style="border-bottom:1px solid rgba(255,255,255,.15)"><span class="fs13" style="opacity:.85">Department</span><span class="fw6">People Ops</span></div>
+<div class="fx ac jb py6"><span class="fs13" style="opacity:.85">Verified by</span><span class="fw6">GPS</span></div>
+</div>
+</div>
+<div style="padding:16px 20px 24px"><button class="cta-big" style="background: linear-gradient(180deg, #FFFFFF32, #F8F8F8EC, #FFFFFF4F); color: #004530; border-radius: 12px; height: 52px; font-weight: 700; box-shadow: 2px 4px 12px 0px #0000009E">Done</button></div>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Attendance history</div>
+<div class="mobile-frame">
+
+<div class="mobile-body" style="background-color: #F6F7FF">
+
+<div style="color: #fff; padding: 18px 20px 32px; border-radius: 0 0 20px 20px; width: 374px; height: 243px; background: linear-gradient(180deg, #02B2AC, #28211a); border-width: 1px; border-style: solid; border-color: #2AC1BC; box-shadow: 0px 4px 12px 0px #0000009E; position: relative">
+
+<div style="text-align:center;margin-bottom:20px;margin-top:26px"><div style="display: inline-block; padding: 6px 18px; border-radius: 99px; background: rgba(255,255,255,.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.2); box-shadow: 0px 4px 12px 0px #00000059"><div style="font-size:22px;font-weight:800;letter-spacing:-.8px;line-height:1;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.25)">ting<span style="color: #003F7C; text-shadow: 0 0 12px rgba(0,130,255,.9)">sync</span></div></div><div style="margin-top:8px;font-size:9px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;color:rgba(255,255,255,.6)">Attendance · GPS Verified</div></div>
+<div style="font-size: 13px; line-height: 1; position: absolute; left: 2px; top: 119px; width: 373px; height: 72px; font-weight: 700; font-family: Head Office HQ; text-align: center; text-transform: capitalize; color: #F9F9F9; font-style: italic; text-decoration-line: none">Good morning Ana. Welcome Back. Safety is our priority please follow all protocols today.</div></div><div class="px16" style="background-color: #FFFFFF">
+
+</div>
+<div class="p16" style="background-color: transparent; margin-top: -96px; position: relative; z-index: 2">
+<div class="m-card" style="padding: 18px; box-shadow: 0px 4px 12px 0px #0000009E; background: linear-gradient(200deg, #034A88, #1685B2, #034A88); width: 360px; height: 176px; overflow: visible; opacity: 1; border-radius: 12px; position: relative; border-style: none; margin-bottom: 20px">
+<div class="fx ac jb mb14"><div class="fs10 fw7 muted" style="letter-spacing: .6px; color: #000000">TODAY</div><span class="badge badge-green" style="color: #007D54">• Clocked in</span></div>
+<div class="fx ac gap16" style="position: relative">
+<div><div class="fs32 fw7 tnum" style="letter-spacing:-1px;line-height:1">4:12</div><div class="muted fs11 mt4" style="color: #000000">hours so far</div></div>
+<div style="width:1px;height:36px;background:var(--border)"></div>
+<div class="f1"><div class="fw6 fs13">Head Office HQ</div><div class="muted fs11 mt2" style="color: #000000">In at 08:02 AM</div></div>
+</div><button class="cta-big mt16" style="background: linear-gradient(180deg, #1A0000, #6F0000, #1A0000); color: #fff; border-radius: 10px; height: 55px; font-size: 14px; width: 236px; flex-direction: row; text-align: center; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; box-shadow: 0px 4px 12px 0px #0000007A">Clock out</button>
+
+</div><div class="seg w100" style="border-radius: 10px; border-color: #84A6EB; border-width: 1px; box-shadow: 0px 4px 12px 0px #0000007A; width: 341px; height: 37px"><button class="active f1 jc" style="justify-content: center; border-width: 2px; border-style: none; border-color: #8FA9EF; width: 99px; height: 29px; text-align: center; color: #FFFFFF; background: linear-gradient(180deg, #0A3DB6, #002E62, #0A3DB6)">This week</button><button class="f1 jc" style="justify-content: center; text-align: center">Month</button><button class="f1 jc" style="justify-content: center; text-align: center">All</button></div>
+<div class="fs10 fw7 muted mb8" style="letter-spacing: .6px; color: #202020; width: 339px; height: 39px; text-align: left; line-height: 7">TODAY • JUN 20</div><div class="m-card fx ac gap12 mb16" style="padding: 14px; border-width: 1px; border-color: #5087F1; box-shadow: 0px 4px 12px 0px #2F31347A">
+<div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg,#e0f2fe,#dbeafe); position: relative; flex-shrink: 0; overflow: hidden; border: 1px solid var(--border); border-width: 2px; border-color: #97ACE0; border-style: solid; box-shadow: 0px 4px 12px 0px #0000007A"><div style="position:absolute;top:50%;left:50%;width:8px;height:8px;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(37,99,235,.25)"></div></div>
+<div class="f1"><div class="fw6 fs13">Head Office HQ</div><div class="muted fs11 mt2">08:02 — ongoing • 4.2 h</div></div>
+<span class="badge badge-green" style="border-width: 1px; border-style: solid; border-color: #A3AFF1; box-shadow: 0px 4px 12px 0px #0000007A">Present</span>
+</div>
+<div class="fs10 fw7 muted mb8" style="letter-spacing: .6px; color: #202020">THURSDAY • JUN 19</div>
+<div class="m-card fx ac gap12 mb16" style="padding: 14px; border-width: 1px; border-color: #5087F1; box-shadow: 0px 4px 12px 0px #2F31347A">
+<div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg,#e0f2fe,#dbeafe); position: relative; flex-shrink: 0; overflow: hidden; border: 1px solid var(--border); border-width: 2px; border-color: #97ACE0; border-style: solid; box-shadow: 0px 4px 12px 0px #0000007A"><div style="position:absolute;top:50%;left:50%;width:8px;height:8px;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%)"></div></div>
+<div class="f1"><div class="fw6 fs13">Head Office HQ</div><div class="muted fs11 mt2">08:23 — 17:02 • 8.6 h</div></div>
+<span class="badge badge-amber" style="border-width: 1px; border-style: solid; border-color: #A3AFF1; box-shadow: 0px 4px 12px 0px #0000007A">Late</span>
+</div>
+<div class="fs10 fw7 muted mb8" style="letter-spacing: .6px; color: #202020">WEDNESDAY • JUN 18</div>
+<div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 12px"><div class="m-card fx ac gap12 mb8" style="padding: 14px; border-width: 1px; border-color: #5087F1; box-shadow: 0px 4px 12px 0px #2F31347A">
+<div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg,#e0f2fe,#dbeafe); position: relative; flex-shrink: 0; overflow: hidden; border: 1px solid var(--border); border-width: 2px; border-color: #97ACE0; border-style: solid; box-shadow: 0px 4px 12px 0px #0000007A"><div style="position:absolute;top:50%;left:50%;width:8px;height:8px;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%)"></div></div>
+<div class="f1"><div class="fw6 fs13">Branch A</div><div class="muted fs11 mt2">07:58 — 17:00 • 9.0 h</div></div>
+<span class="badge badge-green" style="border-width: 1px; border-style: solid; border-color: #A3AFF1; box-shadow: 0px 4px 12px 0px #0000007A">Present</span>
+</div><div class="m-card fx ac gap12" style="padding: 14px; border-width: 1px; border-color: #5087F1; box-shadow: 0px 4px 12px 0px #2F31347A">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: var(--red-tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-width: 2px; border-color: #97ACE0; border-style: solid; box-shadow: 0px 4px 12px 0px #0000007A"><div style="width:12px;height:12px;border:2px solid var(--red);border-radius:50%"></div></div>
+<div class="f1"><div class="fw6 fs13">No record</div><div class="muted fs11 mt2">Sunday • rest day</div></div>
+<span class="badge badge-red" style="border-width: 1px; border-style: solid; border-color: #A3AFF1; box-shadow: 0px 4px 12px 0px #0000007A">Absent</span>
+</div></div>
+
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button class="active" style="color: #003FFF; background-color: #FFFFFF; width: 80px; height: 61px"><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Leave • Request</div>
+<div class="mobile-frame">
+
+<div class="fx ac gap8" style="padding: 16px 16px 8px; background-color: #FFFFFF; width: 397px; height: 112px; min-width: 60px; flex-wrap: wrap; align-items: flex-end; position: relative; justify-content: flex-start"><button class="btn-ghost btn-icon"><i data-lucide="chevron-left" style="width: 20px; height: 20px; color: #FFFFFF"></i></button><div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 12px"><div class="fs20 fw7" style="color: #191818">Attendance</div></div></div><div class="mobile-body" style="background-color: #FFFFFF">
+
+<div class="p16" style="background-color: #FFFFFF; height: 100%; width: 100%; position: relative">
+<div class="fx gap8 mb16">
+
+<div class="m-card f1 tc" style="padding: 12px; border-color: #85ACFA; box-shadow: 0px 4px 12px 0px #0000009E; background-color: #0871F4; border-style: none"><div style="width: 34px; height: 34px; border-radius: 10px; background: #dbeafe; color: #2E3035; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0px 4px 12px 0px #0000007A"><i data-lucide="palm-tree" style="width: 16px; height: 16px; color: #001898; overflow: visible"></i><p style="margin: 0; width: 35px; height: 23px; text-align: left">⛱</p></div><div class="fs20 fw7 tnum" style="color: #FFFFFF">8</div><div class="muted fs11" style="color: #FFFFFF">Vacation</div></div><div class="m-card f1 tc" style="padding: 12px; border-color: #85ACFA; box-shadow: 0px 4px 12px 0px #0000009E; background-color: #00FF61; border-style: none"><div style="width: 34px; height: 34px; border-radius: 10px; background: #fee2e2; color: #dc2626; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0px 4px 12px 0px #0000007A"><i data-lucide="thermometer" style="width: 16px; height: 16px; color: #FF5700"></i></div><div class="fs20 fw7 tnum" style="color: #FFFFFF">3</div><div class="muted fs11" style="color: #FFFFFF">Sick</div></div>
+<div class="m-card f1 tc" style="padding: 12px; border-color: #85ACFA; box-shadow: 0px 4px 12px 0px #0000009E; background-color: #CD0000; border-style: none"><div style="width: 34px; height: 34px; border-radius: 10px; background: #fef3c7; color: #d97706; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0px 4px 12px 0px #0000007A"><i data-lucide="zap" style="width: 16px; height: 16px; color: #CD0000"></i></div><div class="fs20 fw7 tnum" style="color: #FFFFFF">1</div><div class="muted fs11" style="color: #FFFFFF">Emergency</div></div>
+</div>
+<div class="m-card" style="padding: 18px; border-color: #95B3EF; box-shadow: 0px 4px 12px 0px #0000009E">
+<div class="fx ac jb mb14"><div class="fw6 fs14">Request leave</div><button class="brand fs12 fw5">My requests →</button></div>
+<div class="fx col gap12">
+<div><div class="fs12 fw5 mb6">Type</div><button class="input input-lg fx ac jb" style="text-align: left; border-color: #789EEA"><span>Vacation leave</span><i data-lucide="chevron-down" style="width:16px;height:16px;color:var(--text-3)"></i></button></div>
+<div class="fx gap10">
+<div class="f1"><div class="fs12 fw5 mb6">From</div><input class="input input-lg" value="Jun 24" style="border-color: #789EEA"></div>
+<div class="f1"><div class="fs12 fw5 mb6">To</div><input class="input input-lg" value="Jun 26" style="border-color: #789EEA"></div>
+</div>
+<div><div class="fs12 fw5 mb6">Reason</div><textarea class="input input-lg" rows="3" placeholder="Family matter in the province…" style="border-color: #769DEB"></textarea></div>
+<button class="btn w100 jc bd-dash" style="justify-content: center; padding: 12px; color: var(--text-2); border-color: #4287EF"><i data-lucide="paperclip" style="width:14px;height:14px"></i>Attach document (optional)</button>
+<button class="cta-big" style="background: linear-gradient(180deg, #1F58D5, #000E79, #144DC3); border-radius: 10px; height: 52px; box-shadow: 0px 7px 12px 0px #0505059E">Submit request</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button class="active" style="color: #0030FF; background-color: #FFFFFF; width: 79px; height: 61px"><i data-lucide="calendar-days"></i>Leave</button>
+
+<button><i data-lucide="file-text"></i>Payslips</button><button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+<div>
+<div class="mobile-label">Leave • My requests</div>
+<div class="mobile-frame">
+
+<div class="mobile-body" style="background-color: #FFFFFF">
+<div class="fx ac gap8" style="padding: 16px 16px 8px; background-color: #FFFFFF; width: 389px; height: 110px; min-width: 60px; flex-wrap: wrap; align-items: flex-end"><button class="btn-ghost btn-icon"><i data-lucide="chevron-left" style="width: 20px; height: 20px; color: #FFFFFF"></i></button><div class="fs20 fw7" style="color: #191818">My requests</div></div>
+<div class="p16 fx col gap12" style="background-color: #FFFFFF">
+<div class="m-card" style="padding: 14px; background-color: #0871F4CF; box-shadow: 0px 4px 12px 0px #1010119E; border-style: none">
+<div class="fx ac jb mb8"><div class="fw6 fs14">Vacation leave</div><span class="badge badge-green" style="border-width: 1px; border-style: solid; border-color: #4996F6">Approved</span></div>
+<div class="muted fs12 mb12" style="color: #FFFFFF">Jun 24 – 26 • 3 days</div>
+<div style="border-left:2px solid var(--green);padding-left:14px;position:relative">
+<div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid #fff"></div>
+<div class="fw6 fs12">Submitted</div><div class="muted fs11" style="color: #FFFFFF">Jun 18, 2:14 PM</div>
+<div style="position:absolute;left:-6px;top:36px;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid #fff"></div>
+<div class="fw6 fs12 mt8" style="color: #017200">Approved by R. Cruz</div><div class="muted fs11" style="color: #FFFFFF">Jun 19, 9:02 AM</div>
+</div>
+</div>
+<div class="m-card" style="padding: 14px; background-color: #00FF61E6; box-shadow: 0px 4px 12px 0px #1010119E; border-style: none">
+<div class="fx ac jb mb8"><div class="fw6 fs14">Sick leave</div><span class="badge badge-amber" style="border-width: 1px; border-style: solid; border-color: #4996F6">Pending</span></div>
+<div class="muted fs12 mb12" style="color: #FFFFFF">Jun 12 • 1 day</div>
+<div style="border-left:2px solid var(--amber);padding-left:14px;position:relative">
+<div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid #fff"></div>
+<div class="fw6 fs12">Submitted</div><div class="muted fs11" style="color: #FFFFFF">Jun 11, 6:40 PM</div>
+<div style="position:absolute;left:-6px;top:36px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--amber)"></div>
+<div class="fw6 fs12 mt8" style="color: #6B3B00">Awaiting manager review</div><div class="muted fs11" style="color: #FFFFFF">Usually within 24 hrs</div>
+</div>
+</div>
+<div class="m-card" style="padding: 14px; background-color: #CD0000; box-shadow: 0px 4px 12px 0px #1010119E; border-style: none">
+<div class="fx ac jb mb8"><div class="fw6 fs14" style="color: #FFFFFF">Emergency leave</div><span class="badge badge-red" style="border-width: 1px; border-style: solid; border-color: #4996F6">Rejected</span></div>
+<div class="muted fs12 mb12" style="color: #FFFFFF">May 30 • 1 day</div>
+<div class="fs12 p10 rad6" style="background:#fef2f2;color:#991b1b">"Insufficient coverage that day — please re-file." — R. Cruz</div>
+</div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button class="active" style="color: #0030FF; background-color: #FFFFFF; width: 76px; height: 61px"><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Payslips list</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background-color: #FFFFFF"><div class="right"></div></div>
+<div class="mobile-body" style="background-color: #FFFFFF">
+<div style="padding: 16px 16px 8px; background-color: #FFFFFF"><div class="fs20 fw7" style="color: #1B1A1A">Payslips</div></div>
+<div class="p16" style="background-color: #FFFFFF">
+<div style="background: linear-gradient(250deg, #002285, #001C59, #002881); color: #fff; border-radius: 16px; padding: 18px; margin-bottom: 16px; box-shadow: 2px 4px 12px 0px #0000009E">
+<div class="fs10 fw7" style="letter-spacing:.6px;opacity:.85">LATEST NET PAY</div>
+<div class="fs28 fw7 mt6 tnum" style="letter-spacing:-1px">₱ 8,420.00</div>
+<div class="fs12 mt6" style="opacity:.85">Jun 1 – 15, 2026 • Paid</div>
+</div>
+<div class="fx col gap10">
+<div class="m-card fx ac jb pointer" style="padding: 14px; border-color: #7CA0E7; box-shadow: 0px 4px 12px 0px #0404049E">
+<div><div class="fw6 fs14">Jun 1 – 15, 2026</div><div class="muted fs11 mt2">Net pay</div></div>
+<div class="tr"><div class="fw7 fs14 tnum">₱ 8,420.00</div><div class="badge badge-green mt2" style="border-width: 1px; border-style: solid; border-color: #3273E8">Paid</div></div>
+</div>
+<div class="m-card fx ac jb" style="padding: 14px; border-color: #7CA0E7; box-shadow: 0px 4px 12px 0px #0404049E">
+<div><div class="fw6 fs14">May 16 – 31, 2026</div><div class="muted fs11 mt2">Net pay</div></div>
+<div class="tr"><div class="fw7 fs14 tnum">₱ 8,910.00</div><div class="badge badge-green mt2" style="border-width: 1px; border-style: solid; border-color: #3273E8">Paid</div></div>
+</div>
+<div class="m-card fx ac jb" style="padding: 14px; border-color: #7CA0E7; box-shadow: 0px 4px 12px 0px #0404049E">
+<div><div class="fw6 fs14">May 1 – 15, 2026</div><div class="muted fs11 mt2">Net pay</div></div>
+<div class="tr"><div class="fw7 fs14 tnum">₱ 8,640.00</div><div class="badge badge-green mt2" style="border-width: 1px; border-style: solid; border-color: #3273E8">Paid</div></div>
+</div>
+<div class="m-card fx ac jb" style="padding: 14px; border-color: #7CA0E7; box-shadow: 0px 4px 12px 0px #0404049E">
+<div><div class="fw6 fs14">Apr 16 – 30, 2026</div><div class="muted fs11 mt2">Net pay</div></div>
+<div class="tr"><div class="fw7 fs14 tnum">₱ 9,080.00</div><div class="badge badge-green mt2" style="border-width: 1px; border-style: solid; border-color: #3273E8">Paid</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button class="active" style="color: #0012FF; background-color: #FFFFFF; width: 77px; height: 61px"><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Payslip detail</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background-color: #1C1D22"><div class="right"></div></div>
+<div class="mobile-body" style="background:#f8fafc">
+<div class="fx ac gap8" style="padding: 16px 16px 8px; background-color: #1C1D22"><button class="btn-ghost btn-icon"><i data-lucide="chevron-left" style="width: 20px; height: 20px; color: #FFFFFF"></i></button><div><div class="fs18 fw7" style="color: #FFFFFF">Jun 1 – 15, 2026</div><div class="muted fs11" style="color: #91969D">Payslip • EMP-0098</div></div></div>
+<div class="p16" style="background-color: #1C1D22">
+<div class="m-card mb12" style="padding: 16px; background-color: #00F00E34; color: #FFEBEB">
+<div class="fs11 fw7 mb12" style="color:var(--green);letter-spacing:.4px">EARNINGS</div>
+<div class="fx col gap10">
+<div class="fx jb fs13"><span style="color: #FFEBEB">Regular • 88.0 h</span><span class="mono tnum" style="color: #FFEBEB">₱ 7,920.00</span></div>
+<div class="fx jb fs13"><span style="color: #FFEBEB">Overtime • 6.0 h</span><span class="mono tnum" style="color: #FFEBEB">₱ 810.00</span></div>
+<div class="fx jb fs13"><span style="color: #FFEBEB">Allowance</span><span class="mono tnum" style="color: #FFEBEB">₱ 630.00</span></div>
+</div>
+<div class="split mt10 mb10"></div>
+<div class="fx jb fs13 fw6"><span style="color: #FFEBEB">Gross pay</span><span class="mono tnum" style="color: #FFEBEB">₱ 9,360.00</span></div>
+</div>
+<div class="m-card mb12" style="padding: 16px; background-color: #FD474731">
+<div class="fs11 fw7 mb12" style="color:var(--red);letter-spacing:.4px">DEDUCTIONS</div>
+<div class="fx col gap10">
+<div class="fx jb fs13" style="color: #FFEBEB"><span>SSS</span><span class="mono tnum">– ₱ 405.00</span></div>
+<div class="fx jb fs13" style="color: #FFEBEB"><span>PhilHealth</span><span class="mono tnum">– ₱ 187.20</span></div>
+<div class="fx jb fs13"><span style="color: #FFEBEB">Pag-IBIG</span><span class="mono tnum" style="color: #FFEBEB">– ₱ 100.00</span></div>
+<div class="fx jb fs13"><span style="color: #FFEBEB">Withholding tax</span><span class="mono tnum" style="color: #FFEBEB">– ₱ 168.80</span></div>
+<div class="fx jb fs13"><span style="color: #FFEBEB">Late / undertime</span><span class="mono tnum" style="color: #FFEBEB">– ₱ 79.00</span></div>
+</div>
+<div class="split mt10 mb10"></div>
+<div class="fx jb fs13 fw6"><span style="color: #FFEBEB">Total deductions</span><span class="mono tnum" style="color:var(--red)">– ₱ 940.00</span></div>
+</div>
+<div style="background: linear-gradient(180deg, #010B22, #000F3F, #000626); color: #fff; border-radius: 14px; padding: 16px 18px; margin-bottom: 16px; box-shadow: 0px 4px 12px 0px #0000009E">
+<div class="fx ac jb">
+<div><div class="fs10 fw7" style="letter-spacing:.6px;opacity:.7">NET PAY</div><div class="fs11 mt2" style="opacity:.7">Deposited to BPI ••••4421</div></div>
+<div class="fs22 fw7 tnum brand" style="color:#60a5fa;letter-spacing:-.5px">₱ 8,420.00</div>
+</div>
+</div>
+<div class="fx gap10 mb16">
+<button class="btn f1 jc" style="justify-content: center; padding: 12px; border-radius: 10px; border-color: #1B5CDD; border-style: dotted; box-shadow: 0px 4px 12px 0px #0000007A"><i data-lucide="share-2" style="width:14px;height:14px"></i>Share</button>
+<button class="btn btn-pri f1 jc" style="justify-content: center; padding: 12px; border-radius: 10px; background: linear-gradient(180deg, #0238AF, #000E42, #003099); border-color: #2563eb; box-shadow: 0px 4px 12px 0px #0000009E"><i data-lucide="download" style="width:14px;height:14px"></i>Download PDF</button>
+</div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button class="active"><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Tasks (secondary)</div>
+<div class="mobile-frame">
+<div class="mobile-status" style="background-color: #1C1D22"><div class="right"></div></div>
+<div class="mobile-body" style="background-color: #1C1D22">
+<div class="fx ac gap8" style="padding: 16px 16px 8px"><button class="btn-ghost btn-icon" style="color: #FFFFFF"><i data-lucide="chevron-left" style="width:20px;height:20px"></i></button><div class="fs20 fw7" style="color: #FFFFFF">My tasks</div><span class="badge badge-blue" style="margin-left: auto; border-width: 1px; border-style: solid; border-color: #2686E4">5 active</span></div>
+<div class="p16 fx col gap10">
+<div class="m-card" style="padding: 14px; border-color: #407AED; box-shadow: 0px 4px 12px 0px #00000045"><div class="fx ac gap6 mb6"><span class="badge badge-amber badge-plain" style="border-width: 1px; border-style: solid; border-color: #438DEA">High</span><span class="muted fs11">Due today</span></div><div class="fw6 fs13">June payroll review</div><div class="muted fs12 mt4">Review your time logs before cutoff</div><div class="progress mt10" style="background-color: #D8D8D8"><div style="width:60%"></div></div></div>
+<div class="m-card" style="padding: 14px; border-color: #407AED; box-shadow: 0px 4px 12px 0px #00000045"><div class="fx ac gap6 mb6"><span class="badge badge-blue badge-plain" style="border-width: 1px; border-style: solid; border-color: #438DEA">Medium</span><span class="muted fs11">Due Jul 5</span></div><div class="fw6 fs13">Onboard new sales reps</div></div>
+<div class="m-card" style="padding: 14px; border-color: #407AED; box-shadow: 0px 4px 12px 0px #00000045"><div class="fx ac gap6 mb6"><span class="badge badge-gray badge-plain" style="border-width: 1px; border-style: solid; border-color: #438DEA">Low</span><span class="muted fs11">Due Jun 30</span></div><div class="fw6 fs13">Review vendor quotes</div></div>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+
+<div>
+<div class="mobile-label">Profile</div>
+<div class="mobile-frame">
+
+<div class="mobile-body" style="background-color: #FFFFFF">
+<div class="tc" style="padding: 20px 16px 12px; border-radius: 25px; background: linear-gradient(200deg, #013064, #2C73C3, #01254E); width: 384px; height: 240px; box-shadow: 0px 4px 12px 0px #00000000">
+<div class="fx ac jc gap8 mb20"></div>
+<div style="display:inline-block;position:relative"><div class="avatar" style="width: 96px; height: 96px; background: #2563eb; color: #fff; font-size: 32px; font-weight: 700; box-shadow: 0px 7px 12px 0px #0000009E">AR</div><button style="position:absolute;bottom:0;right:0;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm)"><i data-lucide="camera" style="width:14px;height:14px;color:var(--text-2)"></i></button></div>
+<div class="fs20 fw7 mt14" style="color: #FFFFFF">Ana Reyes</div>
+<div class="muted fs13 mt2" style="color: #FFFFFF">HR Officer • EMP-0098</div>
+<div class="fx ac jc gap8 mt10"><span class="badge badge-green" style="border-width: 1px; border-style: solid; border-color: #4793F3">Active</span><span class="badge badge-blue" style="border-width: 1px; border-style: solid; border-color: #4793F3">₱ 720/day</span></div>
+</div>
+<div class="p16 fx col gap12" style="height: 100%; width: 100%; background-color: #FFFFFF">
+<div class="m-card" style="padding: 4px 16px; border-color: #558DFF; box-shadow: 0px 4px 12px 0px #0000009E">
+<div class="fx ac jb py12"><span class="muted fs13" style="color: #2A2C2F">Phone</span><span class="fw6 fs13">0917 234 5678</span></div>
+<div class="fx ac jb py12 bd-t"><span class="muted fs13" style="color: #2A2C2F">Site</span><span class="fw6 fs13">Head Office HQ</span></div>
+<div class="fx ac jb py12 bd-t"><span class="muted fs13" style="color: #2A2C2F">Schedule</span><span class="fw6 fs13">Mon–Fri • 8–5</span></div>
+</div>
+<div class="m-card" style="padding: 4px 16px; border-color: #558DFF; box-shadow: 0px 4px 12px 0px #0000009E">
+<label class="fx ac jb py12"><span class="fs13">Notifications</span><div class="toggle on" style="background: linear-gradient(180deg, #2563EB, #002BB4, #2563EB)"></div></label>
+<div class="fx ac jb py12 bd-t"><span class="fs13">Language</span><span class="fw6 fs13">English <i data-lucide="chevron-down" style="width:12px;height:12px;color:var(--text-3)"></i></span></div>
+</div>
+<div class="fw6 fs13 mt4 mb4" style="color: #FFFFFF">Payslips</div>
+<div class="m-card" style="padding: 4px 16px; border-color: #558DFF; box-shadow: 0px 4px 12px 0px #0000009E">
+<button class="fx ac gap10 w100 py12" style="text-align:left"><i data-lucide="file-text" style="width:16px;height:16px;color:var(--primary)"></i><div class="f1"><div class="fw6 fs13">Jun 1–15, 2026</div><div class="muted fs11 mt2" style="color: #2A2C2F">₱ 8,420.00 • Paid</div></div><i data-lucide="download" style="width: 14px; height: 14px; color: #46484A"></i></button>
+<button class="fx ac gap10 w100 py12 bd-t" style="text-align:left"><i data-lucide="file-text" style="width:16px;height:16px;color:var(--primary)"></i><div class="f1"><div class="fw6 fs13">May 16–31, 2026</div><div class="muted fs11 mt2" style="color: #2A2C2F">₱ 8,910.00 • Paid</div></div><i data-lucide="download" style="width: 14px; height: 14px; color: #46484A"></i></button>
+</div>
+<button class="cta-big mt4" style="color: #F9F9F9; border-radius: 12px; height: 48px; font-size: 14px; background: linear-gradient(180deg, #3B0000, #680303, #1F0000); box-shadow: 3px 4px 12px 0px #0000009E">Log out</button>
+</div>
+</div>
+<div class="mobile-tabbar" style="background-color: #0A3DB6">
+<button><i data-lucide="home"></i>Home</button>
+<button><i data-lucide="clock"></i>Attendance</button>
+<button><i data-lucide="calendar-days"></i>Leave</button>
+<button><i data-lucide="file-text"></i>Payslips</button>
+<button class="active" style="width: 77px; height: 61px; color: #000000; background-color: #FFFFFF"><i data-lucide="user"></i>Profile</button>
+</div>
+</div>
+</div>
+
+
+</div>
+<script>window.addEventListener('load',()=>{try{lucide.createIcons()}catch(e){}})</script>
+</body>
+</html>
