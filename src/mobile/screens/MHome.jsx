@@ -73,7 +73,10 @@ export default function MHome() {
         style={{ background: 'linear-gradient(180deg, #02B2AC, #28211a)' }}
       >
         <div className="text-center mb-5">
-          <div className="inline-block px-[18px] py-1.5 rounded-full bg-white/15 border border-white/20 backdrop-blur shadow-[0_4px_12px_rgba(0,0,0,.35)]">
+          <div
+            className="inline-block px-[18px] py-1.5 rounded-full border backdrop-blur shadow-[0_4px_12px_rgba(0,0,0,.35)]"
+            style={{ background: 'rgba(125,185,255,.55)', borderColor: 'rgba(219,234,254,.75)' }}
+          >
             <span className="text-[22px] font-extrabold tracking-tight leading-none text-white">
               ting<span className="text-[#003F7C]" style={{ textShadow: '0 0 12px rgba(0,130,255,.9)' }}>sync</span>
             </span>

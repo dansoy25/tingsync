@@ -127,6 +127,41 @@ export async function uploadSelfie(profileId, blob) {
   return data.publicUrl
 }
 
+// Upload a profile picture to the public `avatars` bucket and save it on the profile.
+export async function uploadAvatar(profileId, blob) {
+  const path = `${profileId}/avatar.jpg`
+  const { error } = await supabase.storage.from('avatars').upload(path, blob, {
+    contentType: 'image/jpeg',
+    upsert: true,
+  })
+  if (error) throw error
+  const { data } = supabase.storage.from('avatars').getPublicUrl(path)
+  const url = `${data.publicUrl}?v=${Date.now()}` // cache-bust so the new photo shows immediately
+  const { error: pErr } = await supabase.from('profiles').update({ avatar_url: url }).eq('id', profileId)
+  if (pErr) throw pErr
+  return url
+}
+
+// Downscale an image File to a centered square JPEG blob (keeps uploads small).
+export function squareImageBlob(file, size = 512) {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => {
+      const side = Math.min(img.width, img.height)
+      const sx = (img.width - side) / 2
+      const sy = (img.height - side) / 2
+      const canvas = document.createElement('canvas')
+      canvas.width = size
+      canvas.height = size
+      const g = canvas.getContext('2d')
+      g.drawImage(img, sx, sy, side, side, 0, 0, size, size)
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Could not process image'))), 'image/jpeg', 0.85)
+    }
+    img.onerror = () => reject(new Error('Could not read that image'))
+    img.src = URL.createObjectURL(file)
+  })
+}
+
 export async function clockIn({ profile, site, lat, lng, selfieUrl }) {
   const status = manilaHourNow() > LATE_AFTER ? 'late' : 'ongoing'
   const { data, error } = await supabase

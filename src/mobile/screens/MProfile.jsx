@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react'
-import { Camera, FileText, Download } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Camera, FileText, Download, Loader2 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useMobile } from '../MobileShell'
 import { supabase } from '../../lib/supabase'
-import { fetchMySite } from '../../lib/mobileApi'
+import { fetchMySite, uploadAvatar, squareImageBlob } from '../../lib/mobileApi'
 import { money, shortDate, initials } from '../../lib/format'
 
 const MCARD = 'bg-white text-ink rounded-2xl border border-[#558DFF] shadow-[0_4px_12px_rgba(0,0,0,.62)]'
 
 export default function MProfile() {
-  const { signOut } = useAuth()
-  const { profile, navigate } = useMobile()
+  const { signOut, refreshProfile } = useAuth()
+  const { profile, navigate, flash } = useMobile()
   const [site, setSite] = useState(null)
   const [slips, setSlips] = useState([])
   const [notif, setNotif] = useState(profile.notifications_enabled ?? true)
+  const [avatar, setAvatar] = useState(profile.avatar_url || '')
+  const [uploading, setUploading] = useState(false)
+  const fileRef = useRef(null)
 
   useEffect(() => {
     fetchMySite(profile.site_id).then(setSite).catch(() => {})
@@ -27,19 +30,48 @@ export default function MProfile() {
     await supabase.from('profiles').update({ notifications_enabled: next }).eq('id', profile.id)
   }
 
+  const onPickPhoto = async (e) => {
+    const file = e.target.files?.[0]
+    e.target.value = '' // allow re-picking the same file
+    if (!file) return
+    setUploading(true)
+    try {
+      const blob = await squareImageBlob(file)
+      const url = await uploadAvatar(profile.id, blob)
+      setAvatar(url)
+      await refreshProfile()
+      flash('Profile picture updated')
+    } catch (err) {
+      flash(err.message || 'Could not update photo')
+    } finally {
+      setUploading(false)
+    }
+  }
+
   return (
     <div className="bg-white min-h-full pb-6">
       {/* Blue gradient header */}
       <div className="text-center px-4 pt-5 pb-3 rounded-b-[25px]" style={{ background: 'linear-gradient(200deg, #013064, #2C73C3, #01254E)' }}>
         <div className="inline-block relative">
-          {profile.avatar_url ? (
-            <img src={profile.avatar_url} alt="" className="w-24 h-24 rounded-full object-cover shadow-[0_7px_12px_rgba(0,0,0,.62)]" />
+          {avatar ? (
+            <img src={avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-[0_7px_12px_rgba(0,0,0,.62)]" />
           ) : (
             <div className="w-24 h-24 rounded-full flex items-center justify-center text-[32px] font-bold shadow-[0_7px_12px_rgba(0,0,0,.62)]" style={{ background: '#2563eb', color: '#fff' }}>
               {initials(profile.full_name) || 'ME'}
             </div>
           )}
-          <button className="absolute bottom-0 right-0 w-[30px] h-[30px] rounded-full bg-white border border-border flex items-center justify-center shadow">
+          {uploading && (
+            <div className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center">
+              <Loader2 className="w-6 h-6 text-white animate-spin" />
+            </div>
+          )}
+          <input ref={fileRef} type="file" accept="image/*" onChange={onPickPhoto} className="hidden" />
+          <button
+            onClick={() => fileRef.current?.click()}
+            disabled={uploading}
+            aria-label="Change profile picture"
+            className="absolute bottom-0 right-0 w-[30px] h-[30px] rounded-full bg-white border border-border flex items-center justify-center shadow active:scale-95 transition-transform"
+          >
             <Camera className="w-3.5 h-3.5 text-muted" />
           </button>
         </div>
